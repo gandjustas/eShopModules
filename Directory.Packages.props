@@ -88,5 +88,9 @@
     <PackageVersion Include="Scalar.AspNetCore" Version="2.21.0" />
     <!-- Before license change -->
     <PackageVersion Include="MediatR" Version="13.1.0" />
+
+    <!-- Modules -->
+    <PackageVersion Include="FusionModules" Version="0.4.0" />
+
   </ItemGroup>
 </Project>

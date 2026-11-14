@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "isRoot": true,
+  "tools": {
+    "fusionmodules.tool": {
+      "version": "0.4.0",
+      "commands": [
+        "dotnet-modules"
+      ],
+      "rollForward": false
+    }
+  }
+}

@@ -1,7 +1,9 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using FusionModules;
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.AddServiceDefaults();
-builder.AddApplicationServices();
+builder.AddDefaultAuthentication();
 
 var withApiVersioning = builder.Services.AddApiVersioning(options =>
 {
@@ -12,13 +14,8 @@ var withApiVersioning = builder.Services.AddApiVersioning(options =>
 builder.AddDefaultOpenApi(withApiVersioning);
 
 var app = builder.Build();
-
+app.UseModuleRouting();
 app.MapDefaultEndpoints();
-
-var webHooks = app.NewVersionedApi("Web Hooks");
-
-webHooks.MapWebHooksApiV1()
-        .RequireAuthorization();
-
 app.UseDefaultOpenApi();
+
 app.Run();

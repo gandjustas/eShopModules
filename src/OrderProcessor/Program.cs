@@ -1,7 +1,8 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿
+var builder = WebApplication.CreateBuilder(args);
 
 builder.AddBasicServiceDefaults();
-builder.AddApplicationServices();
+
 
 var app = builder.Build();
 

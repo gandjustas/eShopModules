@@ -6,6 +6,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Aspire.StackExchange.Redis" />
+    <PackageReference Include="FusionModules" />
     <PackageReference Include="Grpc.AspNetCore" />
   </ItemGroup>
 

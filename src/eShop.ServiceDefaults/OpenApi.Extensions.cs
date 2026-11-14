@@ -11,9 +11,10 @@ namespace eShop.ServiceDefaults;
 
 public static partial class Extensions
 {
-    public static IApplicationBuilder UseDefaultOpenApi(this WebApplication app)
+    public static IApplicationBuilder UseDefaultOpenApi(this IApplicationBuilder app)
     {
-        var configuration = app.Configuration;
+        var configuration = app.ApplicationServices.GetRequiredService<IConfiguration>();
+        var environment = app.ApplicationServices.GetRequiredService<IHostEnvironment>();
         var openApiSection = configuration.GetSection("OpenApi");
 
         if (!openApiSection.Exists())
@@ -21,25 +22,28 @@ public static partial class Extensions
             return app;
         }
 
-        app.MapOpenApi().WithDocumentPerVersion();
-
-        if (app.Environment.IsDevelopment())
+        app.UseEndpoints(endpoints =>
         {
-            var descriptions = app.DescribeApiVersions();
-            var defaultDocument = descriptions.Count > 0 ? descriptions[^1].GroupName : "v1";
+            endpoints.MapOpenApi().WithDocumentPerVersion();
 
-            app.MapScalarApiReference(options =>
+            if (environment.IsDevelopment())
             {
-                // Disable default fonts to avoid download unnecessary fonts
-                options.DefaultFonts = false;
+                var descriptions = endpoints.DescribeApiVersions();
+                var defaultDocument = descriptions.Count > 0 ? descriptions[^1].GroupName : "v1";
 
-                foreach (var description in descriptions)
+                endpoints.MapScalarApiReference(options =>
                 {
-                    options.AddDocument(description.GroupName, description.GroupName, isDefault: description.GroupName == defaultDocument);
-                }
-            });
-            app.MapGet("/", () => Results.Redirect($"/scalar/{defaultDocument}")).ExcludeFromDescription();
-        }
+                    // Disable default fonts to avoid download unnecessary fonts
+                    options.DefaultFonts = false;
+
+                    foreach (var description in descriptions)
+                    {
+                        options.AddDocument(description.GroupName, description.GroupName, isDefault: description.GroupName == defaultDocument);
+                    }
+                });
+                endpoints.MapGet("/", () => Results.Redirect($"/scalar/{defaultDocument}")).ExcludeFromDescription();
+            }
+        });
 
         return app;
     }

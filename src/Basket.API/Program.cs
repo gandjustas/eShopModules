@@ -1,14 +1,12 @@
-﻿var builder = WebApplication.CreateBuilder(args);
+﻿using FusionModules;
+
+var builder = WebApplication.CreateBuilder(args);
 
 builder.AddBasicServiceDefaults();
-builder.AddApplicationServices();
-
-builder.Services.AddGrpc();
+builder.AddDefaultAuthentication();
 
 var app = builder.Build();
-
+app.UseModuleRouting();
 app.MapDefaultEndpoints();
-
-app.MapGrpcService<BasketService>();
 
 app.Run();
