@@ -8,4 +8,10 @@
     <TrimmerSingleWarn>false</TrimmerSingleWarn>
   </PropertyGroup>
 
+  <!-- Топологические тесты называют Program хоста в коде: исполняемые проекты на FusionModules открывают
+       внутренние типы (Program из top-level кода) проекту tests/Topology.Tests, отдельный Program.Testing.cs не нужен -->
+  <ItemGroup Condition="'$(OutputType)' == 'Exe' And '@(PackageReference->WithMetadataValue('Identity', 'FusionModules')->Count())' != '0'">
+    <InternalsVisibleTo Include="Topology.Tests" />
+  </ItemGroup>
+
 </Project>

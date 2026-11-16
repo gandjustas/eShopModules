@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net11.0</TargetFramework>
+    <IsPublishable>false</IsPublishable>
+    <IsPackable>false</IsPackable>
+    <OutputType>Exe</OutputType>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FusionModules.Testing" />
+    <PackageReference Include="xunit.v3.mtp-v2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- У каждого сервиса свой Program в глобальном пространстве имён, поэтому у каждой ссылки свой псевдонимом:
+         тест называет тип хоста через extern alias, и при переезде достаточно сменить псевдоним в Topologies.cs -->
+    <ProjectReference Include="..\..\src\Basket.API\Basket.API.csproj" Aliases="basket" />
+    <ProjectReference Include="..\..\src\Catalog.API\Catalog.API.csproj" Aliases="catalog" />
+    <ProjectReference Include="..\..\src\Identity.API\Identity.API.csproj" Aliases="identity" />
+    <ProjectReference Include="..\..\src\Ordering.API\Ordering.API.csproj" Aliases="ordering" />
+    <ProjectReference Include="..\..\src\OrderProcessor\OrderProcessor.csproj" Aliases="orderprocessor" />
+    <ProjectReference Include="..\..\src\PaymentProcessor\PaymentProcessor.csproj" Aliases="payment" />
+    <ProjectReference Include="..\..\src\WebApp\WebApp.csproj" Aliases="webapp" />
+    <ProjectReference Include="..\..\src\WebhookClient\WebhookClient.csproj" Aliases="webhookclient" />
+    <ProjectReference Include="..\..\src\Webhooks.API\Webhooks.API.csproj" Aliases="webhooks" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Общая шина: пробе нужен EventBusSubscriptionInfo -->
+    <ProjectReference Include="..\..\src\EventBus\EventBus.csproj" />
+  </ItemGroup>
+
+</Project>
