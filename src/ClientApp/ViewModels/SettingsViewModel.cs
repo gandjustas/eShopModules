@@ -6,14 +6,13 @@ using eShop.ClientApp.Services.AppEnvironment;
 using eShop.ClientApp.Services.Location;
 using eShop.ClientApp.Services.Settings;
 using eShop.ClientApp.ViewModels.Base;
+using eShop.Mobile;
 using Location = eShop.ClientApp.Models.Location.Location;
 
 namespace eShop.ClientApp.ViewModels;
 
 public class SettingsViewModel : ViewModelBase
 {
-    //Needed if using Android Emulator Locally. See https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/local-web-services?view=net-maui-8.0#android
-    private static string _baseAddress = DeviceInfo.Platform == DevicePlatform.Android ? "10.0.2.2" : "localhost";
     
     private readonly IAppEnvironmentService _appEnvironmentService;
     private readonly ILocationService _locationService;
@@ -50,22 +49,22 @@ public class SettingsViewModel : ViewModelBase
         IdentityEndpoint =
             !string.IsNullOrEmpty(_settingsService.IdentityEndpointBase)
                 ? _settingsService.IdentityEndpointBase
-                : $"https://{_baseAddress}:5243";
+                : WebAppAddress.Https;
 
         GatewayCatalogEndpoint =
             !string.IsNullOrEmpty(_settingsService.GatewayCatalogEndpointBase)
                 ? _settingsService.GatewayCatalogEndpointBase
-                : $"http://{_baseAddress}:11632";
+                : WebAppAddress.Http;
 
         GatewayBasketEndpoint =
             !string.IsNullOrEmpty(_settingsService.GatewayBasketEndpointBase)
                 ? _settingsService.GatewayBasketEndpointBase
-                : $"http://{_baseAddress}:5221";
+                : WebAppAddress.Https;
 
         GatewayOrdersEndpoint =
             !string.IsNullOrEmpty(_settingsService.GatewayOrdersEndpointBase)
                 ? _settingsService.GatewayOrdersEndpointBase
-                : $"http://{_baseAddress}:11632";
+                : WebAppAddress.Http;
 
         ToggleMockServicesCommand = new RelayCommand(ToggleMockServices);
 

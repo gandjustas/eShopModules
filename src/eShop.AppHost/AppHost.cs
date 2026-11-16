@@ -1,5 +1,6 @@
 ﻿using System.IO.Pipes;
 using eShop.AppHost;
+using eShop.Mobile;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
@@ -39,6 +40,11 @@ var webApp = builder.AddDotnetProject("webapp", "../WebApp", o => o.LaunchProfil
     .WithReference(orderDb).WaitFor(orderDb)
     .WithReference(webhooksDb)
     .WithHttpHealthCheck("/health")
+    // Порты для мобильных клиентов (ClientApp, HybridApp): не зависят от профилей launchSettings.
+    // Выданные на них токены проверяются тем же Identity, поэтому адрес издателя добавляется в допустимые
+    .WithHttpsEndpoint(port: WebAppAddress.HttpsPort, name: "mobile-https")
+    .WithHttpEndpoint(port: WebAppAddress.HttpPort, name: "mobile-http")
+    .WithEnvironment("Identity__ValidIssuers__0", WebAppAddress.Https)
     .WithEnvironment("ASPNETCORE_HOSTINGSTARTUPASSEMBLIES", string.Join(';', modules));
 
 redis.WithParentRelationship(webApp);
@@ -62,11 +68,6 @@ if (launchProfileName == "https")
 {
     webApp.WithEnvironment("services__basket-api__https__0", webAppEndpoint);
 }
-
-// Reverse proxies
-builder.AddYarp("mobile-bff")
-    .WithExternalHttpEndpoints()
-    .ConfigureMobileBffRoutes(webApp, webApp, webApp);
 
 // Apps
 var webhooksClient = builder.AddDotnetProject("webhooksclient", "../WebhookClient", o => o.LaunchProfileName = launchProfileName)

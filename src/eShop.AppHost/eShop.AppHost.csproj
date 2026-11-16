@@ -16,8 +16,12 @@
     <PackageReference Include="Aspire.Hosting.Redis" />
     <PackageReference Include="Aspire.Hosting.PostgreSQL" />
     <PackageReference Include="Aspire.Hosting.Foundry" />
-    <PackageReference Include="Aspire.Hosting.Yarp" />
     <PackageReference Include="CommunityToolkit.Aspire.Hosting.Ollama" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Порты для мобильных клиентов: тот же файл подключён в ClientApp и HybridApp -->
+    <Compile Include="..\MobileShared\WebAppAddress.cs" Link="WebAppAddress.cs" />
   </ItemGroup>
 
   <ItemGroup>

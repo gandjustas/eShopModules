@@ -51,6 +51,23 @@ public class CatalogService(HttpClient httpClient) : ICatalogService
         return result!;
     }
 
+    public async Task<CatalogFacets> GetCatalogFacets(int[]? brands, int[]? types)
+    {
+        var filterQs = string.Empty;
+        if (types is { Length: > 0 })
+        {
+            filterQs += string.Join("&", types.Select(t => $"type={t}")) + "&";
+        }
+        if (brands is { Length: > 0 })
+        {
+            filterQs += string.Join("&", brands.Select(b => $"brand={b}")) + "&";
+        }
+
+        var uri = $"{remoteServiceBaseUrl}items/facets?{filterQs}api-version=2.0";
+        var result = await httpClient.GetFromJsonAsync(uri, CatalogJsonContext.Default.CatalogFacets);
+        return result!;
+    }
+
     private static string GetAllCatalogItemsUri(string baseUri, int pageIndex, int pageSize, int[]? brands, int[]? types)
     {
         string filterQs = string.Empty;

@@ -83,4 +83,8 @@
         <CodesignEntitlements>Platforms/MacCatalyst/Entitlements.Release.plist</CodesignEntitlements>
         <UseHardenedRuntime>true</UseHardenedRuntime>
     </PropertyGroup>
+	<ItemGroup>
+		<Compile Include="..\MobileShared\WebAppAddress.cs" Link="Services\WebAppAddress.cs" />
+	</ItemGroup>
+
 </Project>

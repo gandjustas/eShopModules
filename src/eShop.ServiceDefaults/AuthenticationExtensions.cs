@@ -45,14 +45,9 @@ public static class AuthenticationExtensions
             options.Authority = identityUrl;
             options.RequireHttpsMetadata = false;
             options.Audience = audience;
-            
-#if DEBUG
-            //Needed if using Android Emulator Locally. See https://learn.microsoft.com/en-us/dotnet/maui/data-cloud/local-web-services?view=net-maui-8.0#android
-            options.TokenValidationParameters.ValidIssuers = [identityUrl, "https://10.0.2.2:5243"];
-#else
-            options.TokenValidationParameters.ValidIssuers = [identityUrl];
-#endif
-            
+            // Токены могут выдаваться на других адресах того же Identity (например, на портах для мобильных клиентов)
+            var extraIssuers = identitySection.GetSection("ValidIssuers").Get<string[]>() ?? [];
+            options.TokenValidationParameters.ValidIssuers = [identityUrl, .. extraIssuers];
             options.TokenValidationParameters.ValidateAudience = false;
         });
 

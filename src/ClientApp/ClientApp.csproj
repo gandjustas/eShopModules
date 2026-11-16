@@ -105,4 +105,8 @@
     <CodesignEntitlements>Platforms\iOS\Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
 
+	<ItemGroup>
+		<Compile Include="..\MobileShared\WebAppAddress.cs" Link="Services\WebAppAddress.cs" />
+	</ItemGroup>
+
 </Project>
