@@ -33,7 +33,7 @@ public static class Topologies
     [
         new("Basket.API", typeof(webapp::Program), ["Basket.API"]),
         new("Catalog.API", typeof(webapp::Program), ["Catalog.API"]),
-        new("Identity.API", typeof(identity::Program), []),
+        new("Identity.API", typeof(webapp::Program), ["Identity.API"], "/identity"),
         new("Ordering.API", typeof(webapp::Program), ["Ordering.API"]),
         new("OrderProcessor", typeof(webapp::Program), ["OrderProcessor"]),
         new("PaymentProcessor", typeof(webapp::Program), ["PaymentProcessor"]),

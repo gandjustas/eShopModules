@@ -21,86 +21,80 @@ var webhooksDb = postgres.AddDatabase("webhooksdb");
 
 var launchProfileName = ShouldUseHttpForEndpoints() ? "http" : "https";
 
-// Services
-var identityApi = builder.AddDotnetProject("identity-api", "../Identity.API", o => o.LaunchProfileName = launchProfileName)
-    .WithExternalHttpEndpoints()
-    .WithReference(identityDb)
-    .WithHttpHealthCheck("/health");
-
-var identityEndpoint = identityApi.GetEndpoint(launchProfileName);
-    
-var basketApi = builder.AddDotnetProject("basket-api", "../Basket.API")
-    .WithReference(redis)
-    .WithReference(rabbitMq).WaitFor(rabbitMq)
-    .WithEnvironment("Identity__Url", identityEndpoint);
-redis.WithParentRelationship(basketApi);
-
-var catalogApi = builder.AddDotnetProject("catalog-api", "../Catalog.API")
-    .WithReference(rabbitMq).WaitFor(rabbitMq)
-    .WithReference(catalogDb);
-
-var orderingApi = builder.AddDotnetProject("ordering-api", "../Ordering.API")
-    .WithReference(rabbitMq).WaitFor(rabbitMq)
-    .WithReference(orderDb).WaitFor(orderDb)
-    .WithHttpHealthCheck("/health")
-    .WithEnvironment("Identity__Url", identityEndpoint);
-
-builder.AddDotnetProject("order-processor", "../OrderProcessor")
-    .WithReference(rabbitMq).WaitFor(rabbitMq)
-    .WithReference(orderDb)
-    .WaitFor(orderingApi); // wait for the orderingApi to be ready because that contains the EF migrations
-    
-builder.AddDotnetProject("payment-processor", "../PaymentProcessor")
-    .WithReference(rabbitMq).WaitFor(rabbitMq);
-
-var webHooksApi = builder.AddDotnetProject("webhooks-api", "../Webhooks.API")
-    .WithReference(rabbitMq).WaitFor(rabbitMq)
-    .WithReference(webhooksDb)
-    .WithEnvironment("Identity__Url", identityEndpoint);
-
-// Reverse proxies
-builder.AddYarp("mobile-bff")
-    .WithExternalHttpEndpoints()
-    .ConfigureMobileBffRoutes(catalogApi, orderingApi, identityApi);
-
-// Apps
-var webhooksClient = builder.AddDotnetProject("webhooksclient", "../WebhookClient", o => o.LaunchProfileName = launchProfileName)
-    .WithReference(webHooksApi)
-    .WithEnvironment("IdentityUrl", identityEndpoint);
+// Сервисы - модули хоста webapp: один процесс, а состав задаёт HOSTINGSTARTUPASSEMBLIES.
+// Порядок важен: Identity первым, а миграции Ordering идут до воркера OrderProcessor, который читает их таблицы.
+string[] modules =
+[
+    "Identity.API", "Catalog.API", "Basket.API", "Ordering.API",
+    "Webhooks.API", "OrderProcessor", "PaymentProcessor",
+];
 
 var webApp = builder.AddDotnetProject("webapp", "../WebApp", o => o.LaunchProfileName = launchProfileName)
     .WithExternalHttpEndpoints()
     .WithUrls(c => c.Urls.ForEach(u => u.DisplayText = $"Online Store ({u.Endpoint?.EndpointName})"))
-    .WithReference(basketApi)
-    .WithReference(catalogApi)
-    .WithReference(orderingApi)
+    .WithReference(redis)
     .WithReference(rabbitMq).WaitFor(rabbitMq)
-    .WaitFor(identityApi)
-    .WithEnvironment("IdentityUrl", identityEndpoint);
+    .WithReference(catalogDb)
+    .WithReference(identityDb)
+    .WithReference(orderDb).WaitFor(orderDb)
+    .WithReference(webhooksDb)
+    .WithHttpHealthCheck("/health")
+    .WithEnvironment("ASPNETCORE_HOSTINGSTARTUPASSEMBLIES", string.Join(';', modules));
+
+redis.WithParentRelationship(webApp);
+
+var webAppEndpoint = webApp.GetEndpoint(launchProfileName);
+
+// Identity, сервисы и сама витрина живут по одному адресу
+webApp.WithEnvironment("IdentityUrl", webAppEndpoint)
+      .WithEnvironment("Identity__Url", webAppEndpoint)
+      .WithEnvironment("CallBackUrl", webAppEndpoint);
+
+// Вызовы между частями идут по прежним именам сервисов, но на адрес самого хоста
+foreach (var service in new[] { "basket-api", "catalog-api", "ordering-api", "webhooks-api" })
+{
+    webApp.WithEnvironment($"services__{service}__{launchProfileName}__0", webAppEndpoint);
+}
+
+// gRPC корзины идёт по HTTP/2 и поддерживается только на HTTPS-эндпоинте. Под профилем http (ESHOP_USE_HTTP_ENDPOINTS=1)
+// HTTPS-эндпоинта у хоста нет, и корзина через gRPC недоступна
+if (launchProfileName == "https")
+{
+    webApp.WithEnvironment("services__basket-api__https__0", webAppEndpoint);
+}
+
+// Reverse proxies
+builder.AddYarp("mobile-bff")
+    .WithExternalHttpEndpoints()
+    .ConfigureMobileBffRoutes(webApp, webApp, webApp);
+
+// Apps
+var webhooksClient = builder.AddDotnetProject("webhooksclient", "../WebhookClient", o => o.LaunchProfileName = launchProfileName)
+    .WithEnvironment($"services__webhooks-api__{launchProfileName}__0", webAppEndpoint)
+    .WithEnvironment("IdentityUrl", webAppEndpoint);
 
 // Set UseFoundry=true to provision Microsoft Foundry for chat and embeddings.
 bool useFoundry = Extensions.IsFoundryEnabled(builder.Configuration);
 if (useFoundry)
 {
-    builder.AddFoundry(catalogApi, webApp);
+    builder.AddFoundry(webApp, webApp);
 }
 
 bool useOllama = false;
 if (useOllama)
 {
-    builder.AddOllama(catalogApi, webApp);
+    builder.AddOllama(webApp, webApp);
 }
 
 // Wire up the callback urls (self referencing)
-webApp.WithEnvironment("CallBackUrl", webApp.GetEndpoint(launchProfileName));
 webhooksClient.WithEnvironment("CallBackUrl", webhooksClient.GetEndpoint(launchProfileName));
 
-// Identity has a reference to all of the apps for callback urls, this is a cyclic reference
-identityApi.WithEnvironment("BasketApiClient", basketApi.GetEndpoint("http"))
-           .WithEnvironment("OrderingApiClient", orderingApi.GetEndpoint("http"))
-           .WithEnvironment("WebhooksApiClient", webHooksApi.GetEndpoint("http"))
-           .WithEnvironment("WebhooksWebClient", webhooksClient.GetEndpoint(launchProfileName))
-           .WithEnvironment("WebAppClient", webApp.GetEndpoint(launchProfileName));
+// Identity has a reference to all of the apps for callback urls
+webApp.WithEnvironment("BasketApiClient", webAppEndpoint)
+      .WithEnvironment("OrderingApiClient", webAppEndpoint)
+      .WithEnvironment("WebhooksApiClient", webAppEndpoint)
+      .WithEnvironment("WebhooksWebClient", webhooksClient.GetEndpoint(launchProfileName))
+      .WithEnvironment("WebAppClient", webAppEndpoint);
 
 builder.Build().Run();
 

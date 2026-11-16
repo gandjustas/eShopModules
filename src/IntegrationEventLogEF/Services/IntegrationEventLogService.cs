@@ -5,15 +5,28 @@ public class IntegrationEventLogService<TContext> : IIntegrationEventLogService,
 {
     private volatile bool _disposedValue;
     private readonly TContext _context;
-    private readonly Type[] _eventTypes;
+
+    // The log stores the full name of the event type. The process may host several services, each with its
+    // own events, so the type is looked up in every loaded assembly, not only in the entry one
+    private static readonly ConcurrentDictionary<string, Type> s_eventTypes = new();
 
     public IntegrationEventLogService(TContext context)
     {
         _context = context;
-        _eventTypes = Assembly.Load(Assembly.GetEntryAssembly().FullName)
-            .GetTypes()
-            .Where(t => t.Name.EndsWith(nameof(IntegrationEvent)))
-            .ToArray();
+    }
+
+    private static Type FindEventType(string fullName)
+    {
+        if (s_eventTypes.TryGetValue(fullName, out var known))
+        {
+            return known;
+        }
+
+        var type = AppDomain.CurrentDomain.GetAssemblies()
+            .Select(assembly => assembly.GetType(fullName, throwOnError: false))
+            .FirstOrDefault(candidate => candidate is not null && typeof(IntegrationEvent).IsAssignableFrom(candidate))
+            ?? throw new InvalidOperationException($"The integration event type '{fullName}' is not loaded in this process.");
+        return s_eventTypes[fullName] = type;
     }
 
     public async Task<IEnumerable<IntegrationEventLogEntry>> RetrieveEventLogsPendingToPublishAsync(Guid transactionId)
@@ -25,7 +38,7 @@ public class IntegrationEventLogService<TContext> : IIntegrationEventLogService,
         if (result.Count != 0)
         {
             return result.OrderBy(o => o.CreationTime)
-                .Select(e => e.DeserializeJsonContent(_eventTypes.FirstOrDefault(t => t.Name == e.EventTypeShortName)));
+                .Select(e => e.DeserializeJsonContent(FindEventType(e.EventTypeName)));
         }
 
         return [];

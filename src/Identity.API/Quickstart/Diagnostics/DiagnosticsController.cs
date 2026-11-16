@@ -5,7 +5,8 @@
 namespace IdentityServerHost.Quickstart.UI;
 
 [SecurityHeaders]
-[Authorize]
+// Вход Identity держит свой cookie: схема по умолчанию общего хоста - cookie витрины
+[Authorize(AuthenticationSchemes = "Identity.Application")]
 public class DiagnosticsController : Controller
 {
     public async Task<IActionResult> Index()

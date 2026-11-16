@@ -22,6 +22,7 @@
          имён, псевдонимы убирают их с глаз компилятора хоста -->
     <ProjectReference Include="..\Basket.API\Basket.API.csproj" Aliases="modules" />
     <ProjectReference Include="..\Catalog.API\Catalog.API.csproj" Aliases="modules" />
+    <ProjectReference Include="..\Identity.API\Identity.API.csproj" Aliases="modules" />
     <ProjectReference Include="..\Ordering.API\Ordering.API.csproj" Aliases="modules" />
     <ProjectReference Include="..\OrderProcessor\OrderProcessor.csproj" Aliases="modules" />
     <ProjectReference Include="..\PaymentProcessor\PaymentProcessor.csproj" Aliases="modules" />

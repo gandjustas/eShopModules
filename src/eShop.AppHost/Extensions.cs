@@ -146,9 +146,15 @@ internal static class Extensions
             yarp.AddRoute("/api/orders/{*any}", orderingApi.GetEndpoint("http"))
                 .WithMatchRouteQueryParameter([new() { Name = "api-version", Values = ["1.0", "1"], Mode = QueryParameterMatchMode.Exact }]);
 
-            // Identity routes
-            yarp.AddRoute("/identity/{*any}", identityApi.GetEndpoint("http"))
+            // Identity routes. Протокольные адреса IdentityServer лежат в корне хоста, поэтому префикс
+            // снимается; страницы входа сами живут под /identity, и для них префикс остаётся
+            yarp.AddRoute("/identity/connect/{*any}", identityApi.GetEndpoint("http"))
                 .WithTransformPathRemovePrefix("/identity");
+
+            yarp.AddRoute("/identity/.well-known/{*any}", identityApi.GetEndpoint("http"))
+                .WithTransformPathRemovePrefix("/identity");
+
+            yarp.AddRoute("/identity/{*any}", identityApi.GetEndpoint("http"));
         });
     }
 }

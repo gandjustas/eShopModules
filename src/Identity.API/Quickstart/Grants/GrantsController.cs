@@ -7,7 +7,8 @@ namespace IdentityServerHost.Quickstart.UI;
 /// This sample controller allows a user to revoke grants given to clients
 /// </summary>
 [SecurityHeaders]
-[Authorize]
+// Вход Identity держит свой cookie: схема по умолчанию общего хоста - cookie витрины
+[Authorize(AuthenticationSchemes = "Identity.Application")]
 public class GrantsController : Controller
 {
     private readonly IIdentityServerInteractionService _interaction;

@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>net11.0</TargetFramework>
     <UserSecretsId>aspnet-eShopOnContainers.Identity-90487118-103c-4ff0-b9da-e5e26f7ab0c5</UserSecretsId>
+    <!-- Статика модуля отдаётся из _content/Identity.API: в общем хосте её файлы не должны сталкиваться с wwwroot витрины -->
+    <StaticWebAssetBasePath>_content/Identity.API</StaticWebAssetBasePath>
   </PropertyGroup>
 
   <ItemGroup>
