@@ -1,10 +1,10 @@
-﻿using eShop.Basket.API.Grpc;
-using eShop.WebApp.Services.OrderStatus.IntegrationEvents;
+﻿using eShop.WebApp.Services.OrderStatus.IntegrationEvents;
 using eShop.WebAppComponents.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Server;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.AI;
 using Microsoft.IdentityModel.JsonWebTokens;
 
@@ -15,27 +15,14 @@ public static class Extensions
         builder.AddRabbitMqEventBus("EventBus")
                .AddEventBusSubscriptions();
 
-        builder.Services.AddHttpForwarderWithServiceDiscovery();
-
         // Application services
         builder.Services.AddScoped<BasketState>();
         builder.Services.AddScoped<LogOutService>();
-        builder.Services.AddSingleton<BasketService>();
+        builder.Services.AddScoped<BasketService>();
+        builder.Services.AddScoped<OrderingService>();
         builder.Services.AddSingleton<OrderStatusNotificationService>();
         builder.Services.AddSingleton<IProductImageUrlProvider, ProductImageUrlProvider>();
         builder.AddAIServices();
-
-        // HTTP and GRPC client registrations
-        builder.Services.AddGrpcClient<Basket.BasketClient>(o => o.Address = new("https://basket-api"))
-            .AddAuthToken();
-
-        builder.Services.AddHttpClient<CatalogService>(o => o.BaseAddress = new("https+http://catalog-api"))
-            .AddApiVersion(2.0)
-            .AddAuthToken();
-
-        builder.Services.AddHttpClient<OrderingService>(o => o.BaseAddress = new("https+http://ordering-api"))
-            .AddApiVersion(1.0)
-            .AddAuthToken();
     }
 
     public static void AddEventBusSubscriptions(this IEventBusBuilder eventBus)

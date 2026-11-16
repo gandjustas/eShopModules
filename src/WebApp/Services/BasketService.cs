@@ -1,49 +1,23 @@
-﻿using eShop.Basket.API.Grpc;
-using GrpcBasketItem = eShop.Basket.API.Grpc.BasketItem;
-using GrpcBasketClient = eShop.Basket.API.Grpc.Basket.BasketClient;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 
 namespace eShop.WebApp.Services;
 
-public class BasketService(GrpcBasketClient basketClient)
+// The basket of the signed-in buyer. It used to be a gRPC client of Basket.API with the user's token;
+// now the buyer comes from the storefront's authentication state and the basket from the module in the process
+public class BasketService(IBasketService basket, AuthenticationStateProvider authenticationStateProvider)
 {
     public async Task<IReadOnlyCollection<BasketQuantity>> GetBasketAsync()
-    {
-        var result = await basketClient.GetBasketAsync(new ());
-        return MapToBasket(result);
-    }
+        => await authenticationStateProvider.GetBuyerIdAsync() is { } buyerId
+            ? await basket.GetBasketAsync(buyerId)
+            : [];
 
     public async Task DeleteBasketAsync()
-    {
-        await basketClient.DeleteBasketAsync(new DeleteBasketRequest());
-    }
+        => await basket.DeleteBasketAsync(await BuyerIdAsync());
 
-    public async Task UpdateBasketAsync(IReadOnlyCollection<BasketQuantity> basket)
-    {
-        var updatePayload = new UpdateBasketRequest();
+    public async Task UpdateBasketAsync(IReadOnlyCollection<BasketQuantity> items)
+        => await basket.UpdateBasketAsync(await BuyerIdAsync(), items);
 
-        foreach (var item in basket)
-        {
-            var updateItem = new GrpcBasketItem
-            {
-                ProductId = item.ProductId,
-                Quantity = item.Quantity,
-            };
-            updatePayload.Items.Add(updateItem);
-        }
-
-        await basketClient.UpdateBasketAsync(updatePayload);
-    }
-
-    private static List<BasketQuantity> MapToBasket(CustomerBasketResponse response)
-    {
-        var result = new List<BasketQuantity>();
-        foreach (var item in response.Items)
-        {
-            result.Add(new BasketQuantity(item.ProductId, item.Quantity));
-        }
-
-        return result;
-    }
+    private async Task<string> BuyerIdAsync()
+        => await authenticationStateProvider.GetBuyerIdAsync()
+           ?? throw new InvalidOperationException("The caller is not authenticated.");
 }
-
-public record BasketQuantity(int ProductId, int Quantity);

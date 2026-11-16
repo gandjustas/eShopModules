@@ -56,19 +56,6 @@ webApp.WithEnvironment("IdentityUrl", webAppEndpoint)
       .WithEnvironment("Identity__Url", webAppEndpoint)
       .WithEnvironment("CallBackUrl", webAppEndpoint);
 
-// Вызовы между частями идут по прежним именам сервисов, но на адрес самого хоста
-foreach (var service in new[] { "basket-api", "catalog-api", "ordering-api", "webhooks-api" })
-{
-    webApp.WithEnvironment($"services__{service}__{launchProfileName}__0", webAppEndpoint);
-}
-
-// gRPC корзины идёт по HTTP/2 и поддерживается только на HTTPS-эндпоинте. Под профилем http (ESHOP_USE_HTTP_ENDPOINTS=1)
-// HTTPS-эндпоинта у хоста нет, и корзина через gRPC недоступна
-if (launchProfileName == "https")
-{
-    webApp.WithEnvironment("services__basket-api__https__0", webAppEndpoint);
-}
-
 // Apps
 var webhooksClient = builder.AddDotnetProject("webhooksclient", "../WebhookClient", o => o.LaunchProfileName = launchProfileName)
     .WithEnvironment($"services__webhooks-api__{launchProfileName}__0", webAppEndpoint)

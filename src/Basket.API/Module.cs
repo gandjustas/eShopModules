@@ -21,6 +21,9 @@ internal sealed class Module : ModuleBase
                .ConfigureJsonOptions(options => options.TypeInfoResolverChain.Add(IntegrationEventContext.Default));
 
         builder.Services.AddGrpc();
+
+        // The storefront in the same process uses the basket through the contract, not through gRPC
+        builder.Services.AddSingleton<eShop.Contracts.Basket.IBasketService, LocalBasketService>();
     }
 
     protected override void Configure(IApplicationBuilder app)

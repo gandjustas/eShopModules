@@ -18,6 +18,7 @@
       "src\\WebhookClient\\WebhookClient.csproj",
       "src\\Webhooks.API\\Webhooks.API.csproj",
       "src\\eShop.AppHost\\eShop.AppHost.csproj",
+      "src\\eShop.Contracts\\eShop.Contracts.csproj",
       "src\\eShop.ServiceDefaults\\eShop.ServiceDefaults.csproj",
       "tests\\Basket.UnitTests\\Basket.UnitTests.csproj",
       "tests\\Basket.FunctionalTests\\Basket.FunctionalTests.csproj",

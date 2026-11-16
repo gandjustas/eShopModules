@@ -1,25 +1,15 @@
-﻿namespace eShop.WebApp.Services;
+﻿using Microsoft.AspNetCore.Components.Authorization;
 
-public class OrderingService(HttpClient httpClient)
+namespace eShop.WebApp.Services;
+
+// The orders of the signed-in buyer. It used to be an HTTP client of Ordering.API with the user's token
+public class OrderingService(IOrderingService ordering, AuthenticationStateProvider authenticationStateProvider)
 {
-    private readonly string remoteServiceBaseUrl = "/api/Orders/";
-
-    public Task<OrderRecord[]> GetOrders()
-    {
-        return httpClient.GetFromJsonAsync<OrderRecord[]>(remoteServiceBaseUrl)!;
-    }
+    public async Task<OrderRecord[]> GetOrders()
+        => await authenticationStateProvider.GetBuyerIdAsync() is { } buyerId
+            ? await ordering.GetOrdersAsync(buyerId)
+            : [];
 
     public Task CreateOrder(CreateOrderRequest request, Guid requestId)
-    {
-        var requestMessage = new HttpRequestMessage(HttpMethod.Post, remoteServiceBaseUrl);
-        requestMessage.Headers.Add("x-requestid", requestId.ToString());
-        requestMessage.Content = JsonContent.Create(request);
-        return httpClient.SendAsync(requestMessage);
-    }
+        => ordering.CreateOrderAsync(request, requestId);
 }
-
-public record OrderRecord(
-    int OrderNumber,
-    DateTime Date,
-    string Status,
-    decimal Total);

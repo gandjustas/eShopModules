@@ -10,6 +10,7 @@ internal sealed class Module : ModuleBase
     protected override void ConfigureServices(IHostApplicationBuilder builder)
     {
         builder.AddApplicationServices();
+        builder.Services.AddSingleton<eShop.Contracts.Ordering.IOrderingService, eShop.Ordering.API.Apis.LocalOrderingService>();
     }
 
     protected override void Configure(IApplicationBuilder app)

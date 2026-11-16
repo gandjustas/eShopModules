@@ -36,7 +36,9 @@ public sealed class CatalogApiFixture : ModularWebApplicationFactory<webapp::Pro
             .UseSetting("IdentityUrl", "http://identity.test")
             .UseSetting("CallBackUrl", "http://identity.test")
             .UseSetting("Identity:Url", "http://identity.test")
-            .UseSetting("ConnectionStrings:EventBus", "amqp://127.0.0.1:1");
+            .UseSetting("ConnectionStrings:EventBus", "amqp://127.0.0.1:1")
+            // The host has one module, so the storefront services that need the other modules cannot be built
+            .UseDefaultServiceProvider(options => options.ValidateOnBuild = false);
         base.ConfigureWebHost(builder);
     }
 

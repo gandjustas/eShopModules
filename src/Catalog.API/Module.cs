@@ -10,6 +10,7 @@ internal sealed class Module : ModuleBase
     protected override void ConfigureServices(IHostApplicationBuilder builder)
     {
         builder.AddApplicationServices();
+        builder.Services.AddSingleton<eShop.WebAppComponents.Services.ICatalogService, eShop.Catalog.API.Services.LocalCatalogService>();
 
         // Картинки лежат рядом со сборкой модуля: корень содержимого в общем хосте - папка хоста
         builder.Services.AddKeyedSingleton<IFileProvider>("pics", (_, _) =>

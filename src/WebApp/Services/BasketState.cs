@@ -8,7 +8,7 @@ namespace eShop.WebApp.Services;
 
 public class BasketState(
     BasketService basketService,
-    CatalogService catalogService,
+    ICatalogService catalogService,
     OrderingService orderingService,
     AuthenticationStateProvider authenticationStateProvider) : IBasketState
 {
@@ -103,7 +103,7 @@ public class BasketState(
             CardSecurityNumber: "111",
             CardTypeId: checkoutInfo.CardTypeId,
             Buyer: buyerId,
-            Items: [.. orderItems]);
+            Items: [.. orderItems.Select(item => new OrderItem(item.ProductId, item.ProductName, item.UnitPrice, item.Quantity))]);
         await orderingService.CreateOrder(request, checkoutInfo.RequestId);
         await DeleteBasketAsync();
     }
@@ -157,19 +157,3 @@ public class BasketState(
         public void Dispose() => Owner._changeSubscriptions.Remove(this);
     }
 }
-
-public record CreateOrderRequest(
-    string UserId,
-    string UserName,
-    string City,
-    string Street,
-    string State,
-    string Country,
-    string ZipCode,
-    string CardNumber,
-    string CardHolderName,
-    DateTime CardExpiration,
-    string CardSecurityNumber,
-    int CardTypeId,
-    string Buyer,
-    List<BasketItem> Items);
