@@ -2,7 +2,7 @@
 
 namespace eShop.Basket.API.Repositories;
 
-public interface IBasketRepository
+internal interface IBasketRepository
 {
     Task<CustomerBasket> GetBasketAsync(string customerId);
     Task<CustomerBasket> UpdateBasketAsync(CustomerBasket basket);

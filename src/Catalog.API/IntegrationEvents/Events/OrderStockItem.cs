@@ -1,3 +1,3 @@
 ﻿namespace eShop.Catalog.API.IntegrationEvents.Events;
 
-public record OrderStockItem(int ProductId, int Units);
+internal record OrderStockItem(int ProductId, int Units);

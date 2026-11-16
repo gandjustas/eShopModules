@@ -3,7 +3,7 @@
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class ProcessConsentResult
+internal class ProcessConsentResult
 {
     public bool IsRedirect => RedirectUri != null;
     public string RedirectUri { get; set; }

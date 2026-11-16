@@ -3,7 +3,7 @@ using eShop.Basket.API.Model;
 
 namespace eShop.Basket.API.Repositories;
 
-public class RedisBasketRepository(ILogger<RedisBasketRepository> logger, IConnectionMultiplexer redis) : IBasketRepository
+internal class RedisBasketRepository(ILogger<RedisBasketRepository> logger, IConnectionMultiplexer redis) : IBasketRepository
 {
     private readonly IDatabase _database = redis.GetDatabase();
 
@@ -50,7 +50,7 @@ public class RedisBasketRepository(ILogger<RedisBasketRepository> logger, IConne
 
 [JsonSerializable(typeof(CustomerBasket))]
 [JsonSourceGenerationOptions(PropertyNameCaseInsensitive = true)]
-public partial class BasketSerializationContext : JsonSerializerContext
+internal partial class BasketSerializationContext : JsonSerializerContext
 {
 
 }

@@ -1,7 +1,7 @@
 ﻿using eShop.Catalog.API.Services;
 using Microsoft.AspNetCore.Mvc;
 
-public class CatalogServices(
+internal class CatalogServices(
     CatalogContext context,
     [FromServices] ICatalogAI catalogAI,
     IOptions<CatalogOptions> options,

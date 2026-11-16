@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.Queries;
 
-public record Orderitem
+internal record Orderitem
 {
     public string ProductName { get; init; }
     public int Units { get; init; }
@@ -8,7 +8,7 @@ public record Orderitem
     public string PictureUrl { get; init; }
 }
 
-public record Order
+internal record Order
 {
     public int OrderNumber { get; init; }
     public DateTime Date { get; init; }
@@ -23,7 +23,7 @@ public record Order
     public decimal Total { get; set; }
 }
 
-public record OrderSummary
+internal record OrderSummary
 {
     public int OrderNumber { get; init; }
     public DateTime Date { get; init; }
@@ -31,7 +31,7 @@ public record OrderSummary
     public double Total { get; init; }
 }
 
-public record CardType
+internal record CardType
 {
     public int Id { get; init; }
     public string Name { get; init; }

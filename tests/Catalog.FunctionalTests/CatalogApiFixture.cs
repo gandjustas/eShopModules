@@ -1,13 +1,17 @@
-﻿using System.Reflection;
+﻿extern alias webapp;
+
+using System.Reflection;
 
 using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
 
+using FusionModules.Testing;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 
 namespace eShop.Catalog.FunctionalTests;
 
-public sealed class CatalogApiFixture : WebApplicationFactory<Program>, IAsyncLifetime
+public sealed class CatalogApiFixture : ModularWebApplicationFactory<webapp::Program>, IAsyncLifetime
 {
     private readonly IHost _app;
 
@@ -15,6 +19,7 @@ public sealed class CatalogApiFixture : WebApplicationFactory<Program>, IAsyncLi
     private string _postgresConnectionString;
 
     public CatalogApiFixture()
+        : base(["Catalog.API"])
     {
         var options = new DistributedApplicationOptions { AssemblyName = typeof(CatalogApiFixture).Assembly.FullName, DisableDashboard = true };
         var appBuilder = DistributedApplication.CreateBuilder(options);
@@ -22,6 +27,17 @@ public sealed class CatalogApiFixture : WebApplicationFactory<Program>, IAsyncLi
             .WithImage("ankane/pgvector")
             .WithImageTag("latest");
         _app = appBuilder.Build();
+    }
+
+    // The host is WebApp: it needs its own settings, the fake bus connection is never opened
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder
+            .UseSetting("IdentityUrl", "http://identity.test")
+            .UseSetting("CallBackUrl", "http://identity.test")
+            .UseSetting("Identity:Url", "http://identity.test")
+            .UseSetting("ConnectionStrings:EventBus", "amqp://127.0.0.1:1");
+        base.ConfigureWebHost(builder);
     }
 
     protected override IHost CreateHost(IHostBuilder builder)

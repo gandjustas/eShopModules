@@ -2,7 +2,7 @@
 
 namespace eShop.Catalog.API.Model;
 
-public class PaginatedItems<TEntity>(int pageIndex, int pageSize, long count, IEnumerable<TEntity> data) where TEntity : class
+internal class PaginatedItems<TEntity>(int pageIndex, int pageSize, long count, IEnumerable<TEntity> data) where TEntity : class
 {
     public int PageIndex { get; } = pageIndex;
 

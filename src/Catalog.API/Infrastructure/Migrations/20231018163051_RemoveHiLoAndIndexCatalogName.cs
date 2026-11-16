@@ -6,7 +6,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace eShop.Catalog.API.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class RemoveHiLoAndIndexCatalogName : Migration
+    internal partial class RemoveHiLoAndIndexCatalogName : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

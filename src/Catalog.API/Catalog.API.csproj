@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net11.0</TargetFramework>
+    <!-- Модуль хоста WebApp: библиотека, свой процесс ему не нужен -->
+    <OutputType>Library</OutputType>
     <Nullable>enable</Nullable>
     <UserSecretsId>d1b521ec-3411-4d39-98c6-8509466ed471</UserSecretsId>
   </PropertyGroup>
@@ -11,10 +13,6 @@
     <Compile Include="..\Shared\MigrateDbContextExtensions.cs" Link="Extensions\MigrateDbContextExtensions.cs" />
   </ItemGroup>
 
-  <PropertyGroup>
-    <OpenApiDocumentsDirectory>$(MSBuildProjectDirectory)</OpenApiDocumentsDirectory>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Asp.Versioning.Http" />
     <PackageReference Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" />
@@ -23,10 +21,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.ApiDescription.Server">
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      <PrivateAssets>all</PrivateAssets>
     </PackageReference>
   </ItemGroup>
 
@@ -48,8 +42,11 @@
     <Content Update="Setup\catalog.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
+  <!-- Тесты видят внутренности модуля; DynamicProxyGenAssembly2 - прокси NSubstitute для internal-интерфейсов -->
   <ItemGroup>
     <InternalsVisibleTo Include="Catalog.FunctionalTests" />
+    <InternalsVisibleTo Include="Application.UnitTests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
 
 </Project>

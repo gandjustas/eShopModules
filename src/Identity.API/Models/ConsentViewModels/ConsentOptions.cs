@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.ConsentViewModels
 {
-    public class ConsentOptions
+    internal class ConsentOptions
     {
         public static bool EnableOfflineAccess = true;
         public static string OfflineAccessDisplayName = "Offline Access";

@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.AccountViewModels
 {
-    public record RegisterViewModel
+    internal record RegisterViewModel
     {
         [Required]
         [EmailAddress]

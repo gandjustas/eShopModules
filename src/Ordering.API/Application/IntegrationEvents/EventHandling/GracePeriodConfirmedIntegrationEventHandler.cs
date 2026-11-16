@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.IntegrationEvents.EventHandling;
 
-public class GracePeriodConfirmedIntegrationEventHandler(
+internal class GracePeriodConfirmedIntegrationEventHandler(
     IMediator mediator,
     ILogger<GracePeriodConfirmedIntegrationEventHandler> logger) : IIntegrationEventHandler<GracePeriodConfirmedIntegrationEvent>
 {

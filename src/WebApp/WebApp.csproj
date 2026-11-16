@@ -18,8 +18,7 @@
 
   <ItemGroup>
     <!-- Сервисы-модули. Ссылки нужны, чтобы сборки (и их content) оказались рядом с хостом: какие модули
-         загрузятся, решает HOSTINGSTARTUPASSEMBLIES. У каждого сервиса свой Program в глобальном пространстве
-         имён, псевдонимы убирают их с глаз компилятора хоста -->
+         загрузятся, решает HOSTINGSTARTUPASSEMBLIES. Псевдоним убирает типы модулей с глаз компилятора хоста -->
     <ProjectReference Include="..\Basket.API\Basket.API.csproj" Aliases="modules" />
     <ProjectReference Include="..\Catalog.API\Catalog.API.csproj" Aliases="modules" />
     <ProjectReference Include="..\Identity.API\Identity.API.csproj" Aliases="modules" />

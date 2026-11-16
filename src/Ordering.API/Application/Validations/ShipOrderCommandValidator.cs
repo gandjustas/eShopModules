@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.Validations;
 
-public class ShipOrderCommandValidator : AbstractValidator<ShipOrderCommand>
+internal class ShipOrderCommandValidator : AbstractValidator<ShipOrderCommand>
 {
     public ShipOrderCommandValidator(ILogger<ShipOrderCommandValidator> logger)
     {

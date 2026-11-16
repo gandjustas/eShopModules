@@ -2,7 +2,7 @@
 {
     using eShop.EventBus.Events;
 
-    public record GracePeriodConfirmedIntegrationEvent : IntegrationEvent
+    internal record GracePeriodConfirmedIntegrationEvent : IntegrationEvent
     {
         public int OrderId { get; }
 

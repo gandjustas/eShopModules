@@ -1,6 +1,6 @@
 ﻿namespace eShop.PaymentProcessor;
 
-public class PaymentOptions
+internal class PaymentOptions
 {
     public bool PaymentSucceeded { get; set; }
 }

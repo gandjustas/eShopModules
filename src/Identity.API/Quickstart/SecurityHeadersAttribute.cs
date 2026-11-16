@@ -4,7 +4,7 @@
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class SecurityHeadersAttribute : ActionFilterAttribute
+internal class SecurityHeadersAttribute : ActionFilterAttribute
 {
     public override void OnResultExecuting(ResultExecutingContext context)
     {

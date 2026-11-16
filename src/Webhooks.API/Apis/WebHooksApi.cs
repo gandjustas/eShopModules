@@ -4,7 +4,7 @@ using Webhooks.API.Extensions;
 
 namespace Webhooks.API;
 
-public static class WebHooksApi
+internal static class WebHooksApi
 {
     public static RouteGroupBuilder MapWebHooksApiV1(this IEndpointRouteBuilder app)
     {

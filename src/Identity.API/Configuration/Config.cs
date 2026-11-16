@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Configuration
 {
-    public class Config
+    internal class Config
     {
         // ApiResources define the apis in your system
         public static IEnumerable<ApiResource> GetApis()

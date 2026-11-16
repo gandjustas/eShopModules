@@ -14,7 +14,8 @@ internal sealed class Module : ModuleBase
     {
         // Контроллеры и представления лежат в сборке модуля, а не в сборке хоста
         builder.Services.AddControllersWithViews()
-                .AddApplicationPart(typeof(Module).Assembly);
+                .AddApplicationPart(typeof(Module).Assembly)
+                .AllowInternalControllers();
 
         builder.AddNpgsqlDbContext<ApplicationDbContext>("identitydb");
         builder.Services.AddMigration<ApplicationDbContext, UsersSeed>();

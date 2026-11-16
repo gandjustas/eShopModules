@@ -1,12 +1,5 @@
-extern alias basket;
-extern alias catalog;
-extern alias identity;
-extern alias ordering;
-extern alias orderprocessor;
-extern alias payment;
 extern alias webapp;
 extern alias webhookclient;
-extern alias webhooks;
 
 namespace eShop.Topology.Tests;
 

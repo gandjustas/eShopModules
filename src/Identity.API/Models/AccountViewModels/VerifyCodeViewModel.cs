@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.AccountViewModels
 {
-    public record VerifyCodeViewModel
+    internal record VerifyCodeViewModel
     {
         [Required]
         public string Provider { get; init; }

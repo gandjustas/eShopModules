@@ -3,7 +3,7 @@
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class ErrorViewModel
+internal class ErrorViewModel
 {
     public ErrorViewModel()
     {

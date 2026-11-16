@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.IntegrationEvents.Events;
 
-public record OrderStatusChangedToCancelledIntegrationEvent : IntegrationEvent
+internal record OrderStatusChangedToCancelledIntegrationEvent : IntegrationEvent
 {
     public int OrderId { get; }
     public OrderStatus OrderStatus { get; }

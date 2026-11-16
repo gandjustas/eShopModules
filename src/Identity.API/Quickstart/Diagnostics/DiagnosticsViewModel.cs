@@ -8,7 +8,7 @@ using System.Text.Json;
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class DiagnosticsViewModel
+internal class DiagnosticsViewModel
 {
     public DiagnosticsViewModel(AuthenticateResult result)
     {

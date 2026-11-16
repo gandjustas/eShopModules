@@ -2,7 +2,7 @@
 
 namespace eShop.Catalog.API.Model;
 
-public record PaginationRequest(
+internal record PaginationRequest(
     [property: Description("Number of items to return in a single page of results")]
     [property: DefaultValue(10)]
     int PageSize = 10,

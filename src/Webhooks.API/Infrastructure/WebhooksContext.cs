@@ -5,7 +5,7 @@
 ///
 /// dotnet ef migrations add [migration-name]
 /// </remarks>
-public class WebhooksContext(DbContextOptions<WebhooksContext> options) : DbContext(options)
+internal class WebhooksContext(DbContextOptions<WebhooksContext> options) : DbContext(options)
 {
     public DbSet<WebhookSubscription> Subscriptions { get; set; }
 

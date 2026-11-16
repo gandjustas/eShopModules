@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.DomainEventHandlers;
 
-public class OrderStatusChangedToAwaitingValidationDomainEventHandler
+internal class OrderStatusChangedToAwaitingValidationDomainEventHandler
                 : INotificationHandler<OrderStatusChangedToAwaitingValidationDomainEvent>
 {
     private readonly IOrderRepository _orderRepository;

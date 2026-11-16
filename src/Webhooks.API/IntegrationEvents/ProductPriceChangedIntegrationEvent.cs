@@ -1,3 +1,3 @@
 ﻿namespace Webhooks.API.IntegrationEvents;
 
-public record ProductPriceChangedIntegrationEvent(int ProductId, decimal NewPrice, decimal OldPrice) : IntegrationEvent;
+internal record ProductPriceChangedIntegrationEvent(int ProductId, decimal NewPrice, decimal OldPrice) : IntegrationEvent;

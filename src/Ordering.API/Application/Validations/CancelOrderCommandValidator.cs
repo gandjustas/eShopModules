@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.Validations;
 
-public class CancelOrderCommandValidator : AbstractValidator<CancelOrderCommand>
+internal class CancelOrderCommandValidator : AbstractValidator<CancelOrderCommand>
 {
     public CancelOrderCommandValidator(ILogger<CancelOrderCommandValidator> logger)
     {

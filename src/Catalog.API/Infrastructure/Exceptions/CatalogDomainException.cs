@@ -3,7 +3,7 @@
 /// <summary>
 /// Exception type for app exceptions
 /// </summary>
-public class CatalogDomainException : Exception
+internal class CatalogDomainException : Exception
 {
     public CatalogDomainException()
     { }

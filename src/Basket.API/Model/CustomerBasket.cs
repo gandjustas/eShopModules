@@ -1,6 +1,6 @@
 ﻿namespace eShop.Basket.API.Model;
 
-public class CustomerBasket
+internal class CustomerBasket
 {
     public string BuyerId { get; set; }
 

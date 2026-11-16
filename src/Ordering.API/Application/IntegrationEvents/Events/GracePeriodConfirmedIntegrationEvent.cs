@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.IntegrationEvents.Events;
 
-public record GracePeriodConfirmedIntegrationEvent : IntegrationEvent
+internal record GracePeriodConfirmedIntegrationEvent : IntegrationEvent
 {
     public int OrderId { get; }
 

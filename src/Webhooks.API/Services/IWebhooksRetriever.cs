@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Services;
 
-public interface IWebhooksRetriever
+internal interface IWebhooksRetriever
 {
 
     Task<IEnumerable<WebhookSubscription>> GetSubscriptionsOfType(WebhookType type);

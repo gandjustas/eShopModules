@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Services
 {
-    public interface ILoginService<T>
+    internal interface ILoginService<T>
     {
         Task<bool> ValidateCredentials(T user, string password);
 

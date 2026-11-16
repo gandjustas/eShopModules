@@ -3,7 +3,7 @@
 using eShop.Ordering.Domain.AggregatesModel.OrderAggregate;
 
 // Regular CommandHandler
-public class CreateOrderCommandHandler
+internal class CreateOrderCommandHandler
     : IRequestHandler<CreateOrderCommand, bool>
 {
     private readonly IOrderRepository _orderRepository;
@@ -54,7 +54,7 @@ public class CreateOrderCommandHandler
 
 
 // Use for Idempotency in Command process
-public class CreateOrderIdentifiedCommandHandler : IdentifiedCommandHandler<CreateOrderCommand, bool>
+internal class CreateOrderIdentifiedCommandHandler : IdentifiedCommandHandler<CreateOrderCommand, bool>
 {
     public CreateOrderIdentifiedCommandHandler(
         IMediator mediator,

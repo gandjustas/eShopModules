@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.AccountViewModels
 {
-    public record LoginViewModel
+    internal record LoginViewModel
     {
         [Required]
         [EmailAddress]

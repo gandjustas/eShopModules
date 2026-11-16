@@ -6,7 +6,7 @@ namespace IdentityServerHost.Quickstart.UI;
 // Вход Identity держит свой cookie: схема по умолчанию общего хоста - cookie витрины
 [Authorize(AuthenticationSchemes = "Identity.Application")]
 [SecurityHeaders]
-public class DeviceController : Controller
+internal class DeviceController : Controller
 {
     private readonly IDeviceFlowInteractionService _interaction;
     private readonly IEventService _events;

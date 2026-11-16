@@ -1,6 +1,6 @@
 ﻿namespace eShop.Catalog.API;
 
-public class CatalogOptions
+internal class CatalogOptions
 {
     public string? PicBaseUrl { get; set; }
     public bool UseCustomizationData { get; set; }

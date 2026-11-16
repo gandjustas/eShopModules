@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Model;
 
-public class WebhookSubscription
+internal class WebhookSubscription
 {
     public int Id { get; set; }
 

@@ -9,7 +9,7 @@ namespace IdentityServerHost.Quickstart.UI;
 [SecurityHeaders]
 // Вход Identity держит свой cookie: схема по умолчанию общего хоста - cookie витрины
 [Authorize(AuthenticationSchemes = "Identity.Application")]
-public class ConsentController : Controller
+internal class ConsentController : Controller
 {
     private readonly IIdentityServerInteractionService _interaction;
     private readonly IEventService _events;

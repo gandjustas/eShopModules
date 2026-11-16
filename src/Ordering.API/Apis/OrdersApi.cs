@@ -2,7 +2,7 @@
 using CardType = eShop.Ordering.API.Application.Queries.CardType;
 using Order = eShop.Ordering.API.Application.Queries.Order;
 
-public static class OrdersApi
+internal static class OrdersApi
 {
     public static RouteGroupBuilder MapOrdersApiV1(this IEndpointRouteBuilder app)
     {
@@ -168,7 +168,7 @@ public static class OrdersApi
     }
 }
 
-public record CreateOrderRequest(
+internal record CreateOrderRequest(
     string UserId,
     string UserName,
     string City,

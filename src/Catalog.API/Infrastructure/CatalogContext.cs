@@ -5,7 +5,7 @@
 ///
 /// dotnet ef migrations add --context CatalogContext [migration-name]
 /// </remarks>
-public class CatalogContext : DbContext
+internal class CatalogContext : DbContext
 {
     public CatalogContext(DbContextOptions<CatalogContext> options, IConfiguration configuration) : base(options)
     {

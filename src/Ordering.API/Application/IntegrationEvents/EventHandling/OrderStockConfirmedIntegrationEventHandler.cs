@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.IntegrationEvents.EventHandling;
 
-public class OrderStockConfirmedIntegrationEventHandler(
+internal class OrderStockConfirmedIntegrationEventHandler(
     IMediator mediator,
     ILogger<OrderStockConfirmedIntegrationEventHandler> logger) :
     IIntegrationEventHandler<OrderStockConfirmedIntegrationEvent>

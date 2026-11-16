@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net11.0</TargetFramework>
+    <!-- Модуль хоста WebApp: библиотека, свой процесс ему не нужен -->
+    <OutputType>Library</OutputType>
     <RootNamespace>eShop.Ordering.API</RootNamespace>
     <UserSecretsId>7161b768-033d-41c7-bc5d-37528275e1f3</UserSecretsId>
   </PropertyGroup>
@@ -9,10 +11,6 @@
   <ItemGroup>
     <Compile Include="..\Shared\ActivityExtensions.cs" Link="Extensions\ActivityExtensions.cs" />
     <Compile Include="..\Shared\MigrateDbContextExtensions.cs" Link="Extensions\MigrateDbContextExtensions.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <InternalsVisibleTo Include="Ordering.FunctionalTests" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +39,13 @@
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
     </Content>
+  </ItemGroup>
+
+  <!-- Тесты видят внутренности модуля; DynamicProxyGenAssembly2 - прокси NSubstitute для internal-интерфейсов -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="Ordering.FunctionalTests" />
+    <InternalsVisibleTo Include="Ordering.UnitTests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
 
 </Project>

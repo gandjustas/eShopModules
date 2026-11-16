@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net11.0</TargetFramework>
+    <!-- Модуль хоста WebApp: библиотека, свой процесс ему не нужен -->
+    <OutputType>Library</OutputType>
     <UserSecretsId>aspnet-eShopOnContainers.Identity-90487118-103c-4ff0-b9da-e5e26f7ab0c5</UserSecretsId>
     <!-- Статика модуля отдаётся из _content/Identity.API: в общем хосте её файлы не должны сталкиваться с wwwroot витрины -->
     <StaticWebAssetBasePath>_content/Identity.API</StaticWebAssetBasePath>
@@ -57,4 +59,11 @@
     <Compile Include="..\Shared\MigrateDbContextExtensions.cs" Link="Extensions\MigrateDbContextExtensions.cs" />
     <Compile Include="..\Shared\ActivityExtensions.cs" Link="Extensions\ActivityExtensions.cs" />
   </ItemGroup>
+
+  <!-- Тесты видят внутренности модуля; DynamicProxyGenAssembly2 - прокси NSubstitute для internal-интерфейсов -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="Application.UnitTests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
+  </ItemGroup>
+
 </Project>

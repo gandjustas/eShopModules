@@ -4,7 +4,7 @@ using eShop.Ordering.API.Extensions;
 using eShop.Ordering.Domain.AggregatesModel.OrderAggregate;
 
 // Regular CommandHandler
-public class CreateOrderDraftCommandHandler
+internal class CreateOrderDraftCommandHandler
     : IRequestHandler<CreateOrderDraftCommand, OrderDraftDTO>
 {
     public Task<OrderDraftDTO> Handle(CreateOrderDraftCommand message, CancellationToken cancellationToken)
@@ -20,7 +20,7 @@ public class CreateOrderDraftCommandHandler
     }
 }
 
-public record OrderDraftDTO
+internal record OrderDraftDTO
 {
     public IEnumerable<OrderItemDTO> OrderItems { get; init; }
     public decimal Total { get; init; }
@@ -43,7 +43,7 @@ public record OrderDraftDTO
     }
 }
 
-public record OrderItemDTO
+internal record OrderItemDTO
 {
     public int ProductId { get; init; }
 

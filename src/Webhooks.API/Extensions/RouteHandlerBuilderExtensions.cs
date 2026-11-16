@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Extensions;
 
-public static class RouteHandlerBuilderExtensions
+internal static class RouteHandlerBuilderExtensions
 {
     public static RouteHandlerBuilder ValidateWebhookSubscriptionRequest(this RouteHandlerBuilder routeHandlerBuilder)
     {

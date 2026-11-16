@@ -1,6 +1,6 @@
 ﻿namespace eShop.Catalog.API.IntegrationEvents.EventHandling;
 
-public class OrderStatusChangedToAwaitingValidationIntegrationEventHandler(
+internal class OrderStatusChangedToAwaitingValidationIntegrationEventHandler(
     CatalogContext catalogContext,
     ICatalogIntegrationEventService catalogIntegrationEventService,
     ILogger<OrderStatusChangedToAwaitingValidationIntegrationEventHandler> logger) :

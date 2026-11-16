@@ -1,7 +1,7 @@
 ﻿namespace eShop.Ordering.API.Application.Commands;
 
 // Regular CommandHandler
-public class ShipOrderCommandHandler : IRequestHandler<ShipOrderCommand, bool>
+internal class ShipOrderCommandHandler : IRequestHandler<ShipOrderCommand, bool>
 {
     private readonly IOrderRepository _orderRepository;
 
@@ -31,7 +31,7 @@ public class ShipOrderCommandHandler : IRequestHandler<ShipOrderCommand, bool>
 
 
 // Use for Idempotency in Command process
-public class ShipOrderIdentifiedCommandHandler : IdentifiedCommandHandler<ShipOrderCommand, bool>
+internal class ShipOrderIdentifiedCommandHandler : IdentifiedCommandHandler<ShipOrderCommand, bool>
 {
     public ShipOrderIdentifiedCommandHandler(
         IMediator mediator,

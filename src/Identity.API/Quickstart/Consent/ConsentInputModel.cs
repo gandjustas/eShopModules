@@ -4,7 +4,7 @@
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class ConsentInputModel
+internal class ConsentInputModel
 {
     public string Button { get; set; }
     public IEnumerable<string> ScopesConsented { get; set; }

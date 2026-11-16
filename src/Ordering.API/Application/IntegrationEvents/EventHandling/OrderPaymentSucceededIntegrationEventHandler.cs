@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.IntegrationEvents.EventHandling;
 
-public class OrderPaymentSucceededIntegrationEventHandler(
+internal class OrderPaymentSucceededIntegrationEventHandler(
     IMediator mediator,
     ILogger<OrderPaymentSucceededIntegrationEventHandler> logger) :
     IIntegrationEventHandler<OrderPaymentSucceededIntegrationEvent>

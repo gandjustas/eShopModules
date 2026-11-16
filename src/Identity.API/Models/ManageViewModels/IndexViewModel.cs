@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.ManageViewModels
 {
-    public record IndexViewModel
+    internal record IndexViewModel
     {
         public bool HasPassword { get; init; }
 

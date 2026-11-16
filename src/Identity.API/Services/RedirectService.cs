@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Services
 {
-    public class RedirectService : IRedirectService
+    internal class RedirectService : IRedirectService
     {
         public string ExtractRedirectUriFromReturnUrl(string url)
         {

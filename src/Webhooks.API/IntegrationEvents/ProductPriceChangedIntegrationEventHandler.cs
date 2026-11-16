@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.IntegrationEvents;
 
-public class ProductPriceChangedIntegrationEventHandler : IIntegrationEventHandler<ProductPriceChangedIntegrationEvent>
+internal class ProductPriceChangedIntegrationEventHandler : IIntegrationEventHandler<ProductPriceChangedIntegrationEvent>
 {
     public Task Handle(ProductPriceChangedIntegrationEvent @event)
     {

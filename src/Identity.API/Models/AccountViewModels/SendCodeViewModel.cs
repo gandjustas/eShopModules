@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.AccountViewModels
 {
-    public record SendCodeViewModel
+    internal record SendCodeViewModel
     {
         public string SelectedProvider { get; init; }
 

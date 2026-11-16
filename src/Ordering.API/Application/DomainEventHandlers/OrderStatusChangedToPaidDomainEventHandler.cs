@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.DomainEventHandlers;
 
-public class OrderStatusChangedToPaidDomainEventHandler : INotificationHandler<OrderStatusChangedToPaidDomainEvent>
+internal class OrderStatusChangedToPaidDomainEventHandler : INotificationHandler<OrderStatusChangedToPaidDomainEvent>
 {
     private readonly IOrderRepository _orderRepository;
     private readonly ILogger _logger;

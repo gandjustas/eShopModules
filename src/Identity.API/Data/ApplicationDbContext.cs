@@ -5,7 +5,7 @@
 ///
 /// dotnet ef migrations add [migration-name]
 /// </remarks>
-public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+internal class ApplicationDbContext : IdentityDbContext<ApplicationUser>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)

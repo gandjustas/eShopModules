@@ -1,7 +1,7 @@
 ﻿namespace eShop.Ordering.API.Application.Commands;
 
 // Regular CommandHandler
-public class SetAwaitingValidationOrderStatusCommandHandler : IRequestHandler<SetAwaitingValidationOrderStatusCommand, bool>
+internal class SetAwaitingValidationOrderStatusCommandHandler : IRequestHandler<SetAwaitingValidationOrderStatusCommand, bool>
 {
     private readonly IOrderRepository _orderRepository;
 
@@ -31,7 +31,7 @@ public class SetAwaitingValidationOrderStatusCommandHandler : IRequestHandler<Se
 
 
 // Use for Idempotency in Command process
-public class SetAwaitingValidationIdentifiedOrderStatusCommandHandler : IdentifiedCommandHandler<SetAwaitingValidationOrderStatusCommand, bool>
+internal class SetAwaitingValidationIdentifiedOrderStatusCommandHandler : IdentifiedCommandHandler<SetAwaitingValidationOrderStatusCommand, bool>
 {
     public SetAwaitingValidationIdentifiedOrderStatusCommandHandler(
         IMediator mediator,

@@ -1,4 +1,4 @@
-﻿public class OrderServices(
+﻿internal class OrderServices(
     IMediator mediator,
     IOrderQueries queries,
     IIdentityService identityService,

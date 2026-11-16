@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.AccountViewModels
 {
-    public record LoggedOutViewModel
+    internal record LoggedOutViewModel
     {
         public string PostLogoutRedirectUri { get; init; }
         public string ClientName { get; init; }

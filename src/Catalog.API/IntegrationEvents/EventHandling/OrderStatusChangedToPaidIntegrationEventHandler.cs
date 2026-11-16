@@ -1,6 +1,6 @@
 ﻿namespace eShop.Catalog.API.IntegrationEvents.EventHandling;
 
-public class OrderStatusChangedToPaidIntegrationEventHandler(
+internal class OrderStatusChangedToPaidIntegrationEventHandler(
     CatalogContext catalogContext,
     ILogger<OrderStatusChangedToPaidIntegrationEventHandler> logger) :
     IIntegrationEventHandler<OrderStatusChangedToPaidIntegrationEvent>

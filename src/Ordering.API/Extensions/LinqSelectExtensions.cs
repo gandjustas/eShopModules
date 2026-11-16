@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Extensions;
 
-public static class LinqSelectExtensions
+internal static class LinqSelectExtensions
 {
     public static IEnumerable<SelectTryResult<TSource, TResult>> SelectTry<TSource, TResult>(this IEnumerable<TSource> enumerable, Func<TSource, TResult> selector)
     {

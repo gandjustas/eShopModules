@@ -1,7 +1,7 @@
 ﻿
 namespace eShop.Identity.API;
 
-public class UsersSeed(ILogger<UsersSeed> logger, UserManager<ApplicationUser> userManager) : IDbSeeder<ApplicationDbContext>
+internal class UsersSeed(ILogger<UsersSeed> logger, UserManager<ApplicationUser> userManager) : IDbSeeder<ApplicationDbContext>
 {
     public async Task SeedAsync(ApplicationDbContext context)
     {

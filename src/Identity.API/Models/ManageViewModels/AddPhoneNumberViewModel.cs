@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.ManageViewModels
 {
-    public record AddPhoneNumberViewModel
+    internal record AddPhoneNumberViewModel
     {
         [Required]
         [Phone]

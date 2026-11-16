@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Services
 {
-    public class EFLoginService : ILoginService<ApplicationUser>
+    internal class EFLoginService : ILoginService<ApplicationUser>
     {
         private UserManager<ApplicationUser> _userManager;
         private SignInManager<ApplicationUser> _signInManager;

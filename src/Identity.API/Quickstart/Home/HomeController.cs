@@ -5,7 +5,7 @@ namespace IdentityServerHost.Quickstart.UI
 {
     [SecurityHeaders]
     [AllowAnonymous]
-    public class HomeController : Controller
+    internal class HomeController : Controller
     {
         private readonly IIdentityServerInteractionService _interaction;
         private readonly IWebHostEnvironment _environment;

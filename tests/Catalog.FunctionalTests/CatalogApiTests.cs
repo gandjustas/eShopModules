@@ -1,4 +1,6 @@
-﻿using System.Net.Http.Json;
+﻿extern alias webapp;
+
+using System.Net.Http.Json;
 using System.IO;
 using System.Net;
 using System.Text.Json;
@@ -12,7 +14,7 @@ namespace eShop.Catalog.FunctionalTests;
 
 public sealed class CatalogApiTests : IClassFixture<CatalogApiFixture>
 {
-    private readonly WebApplicationFactory<Program> _webApplicationFactory;
+    private readonly WebApplicationFactory<webapp::Program> _webApplicationFactory;
     private readonly JsonSerializerOptions _jsonSerializerOptions = new(JsonSerializerDefaults.Web);
 
     public CatalogApiTests(CatalogApiFixture fixture)

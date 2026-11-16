@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.Behaviors;
 
-public class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+internal class ValidatorBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
 {
     private readonly ILogger<ValidatorBehavior<TRequest, TResponse>> _logger;
     private readonly IEnumerable<IValidator<TRequest>> _validators;

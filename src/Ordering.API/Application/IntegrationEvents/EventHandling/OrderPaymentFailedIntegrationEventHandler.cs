@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.IntegrationEvents.EventHandling;
 
-public class OrderPaymentFailedIntegrationEventHandler(
+internal class OrderPaymentFailedIntegrationEventHandler(
     IMediator mediator,
     ILogger<OrderPaymentFailedIntegrationEventHandler> logger) :
     IIntegrationEventHandler<OrderPaymentFailedIntegrationEvent>

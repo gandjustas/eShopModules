@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.AccountViewModels
 {
-    public record ResetPasswordViewModel
+    internal record ResetPasswordViewModel
     {
         [Required]
         [EmailAddress]

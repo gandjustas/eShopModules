@@ -15,17 +15,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!-- У каждого сервиса свой Program в глобальном пространстве имён, поэтому у каждой ссылки свой псевдонимом:
-         тест называет тип хоста через extern alias, и при переезде достаточно сменить псевдоним в Topologies.cs -->
-    <ProjectReference Include="..\..\src\Basket.API\Basket.API.csproj" Aliases="basket" />
-    <ProjectReference Include="..\..\src\Catalog.API\Catalog.API.csproj" Aliases="catalog" />
-    <ProjectReference Include="..\..\src\Identity.API\Identity.API.csproj" Aliases="identity" />
-    <ProjectReference Include="..\..\src\Ordering.API\Ordering.API.csproj" Aliases="ordering" />
-    <ProjectReference Include="..\..\src\OrderProcessor\OrderProcessor.csproj" Aliases="orderprocessor" />
-    <ProjectReference Include="..\..\src\PaymentProcessor\PaymentProcessor.csproj" Aliases="payment" />
+    <!-- У хостов свой Program в глобальном пространстве имён, поэтому у каждой ссылки свой псевдоним:
+         тест называет тип хоста через extern alias. Модули - библиотеки, они приезжают как зависимости WebApp -->
     <ProjectReference Include="..\..\src\WebApp\WebApp.csproj" Aliases="webapp" />
     <ProjectReference Include="..\..\src\WebhookClient\WebhookClient.csproj" Aliases="webhookclient" />
-    <ProjectReference Include="..\..\src\Webhooks.API\Webhooks.API.csproj" Aliases="webhooks" />
   </ItemGroup>
 
   <ItemGroup>

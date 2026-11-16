@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Model;
 
-public class WebhookSubscriptionRequest : IValidatableObject
+internal class WebhookSubscriptionRequest : IValidatableObject
 {
     public string Url { get; set; }
     public string Token { get; set; }

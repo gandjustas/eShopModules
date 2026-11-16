@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Services;
 
-public interface IWebhooksSender
+internal interface IWebhooksSender
 {
     Task SendAll(IEnumerable<WebhookSubscription> receivers, WebhookData data);
 }

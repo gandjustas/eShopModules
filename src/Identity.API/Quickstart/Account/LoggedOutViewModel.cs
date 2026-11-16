@@ -4,7 +4,7 @@
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class LoggedOutViewModel
+internal class LoggedOutViewModel
 {
     public string PostLogoutRedirectUri { get; set; }
     public string ClientName { get; set; }

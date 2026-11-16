@@ -2,7 +2,7 @@ using Npgsql;
 
 namespace eShop.OrderProcessor.Services;
 
-public interface IGracePeriodOrdersRepository
+internal interface IGracePeriodOrdersRepository
 {
     ValueTask<List<int>> GetConfirmedGracePeriodOrdersAsync(
         TimeSpan gracePeriod,

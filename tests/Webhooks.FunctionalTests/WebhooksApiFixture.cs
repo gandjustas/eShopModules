@@ -1,13 +1,17 @@
+extern alias webapp;
+
 using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
 using eShop.ServiceDefaults;
 using Microsoft.AspNetCore.Authorization;
+using FusionModules.Testing;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace eShop.Webhooks.FunctionalTests;
 
-public sealed class WebhooksApiFixture : WebApplicationFactory<Program>, IAsyncLifetime
+public sealed class WebhooksApiFixture : ModularWebApplicationFactory<webapp::Program>, IAsyncLifetime
 {
     private readonly IHost _app;
     private readonly IResourceBuilder<PostgresServerResource> _database;
@@ -16,6 +20,7 @@ public sealed class WebhooksApiFixture : WebApplicationFactory<Program>, IAsyncL
     private string _rabbitMqConnectionString = null!;
 
     public WebhooksApiFixture()
+        : base(["Webhooks.API"])
     {
         var options = new DistributedApplicationOptions
         {
@@ -26,6 +31,17 @@ public sealed class WebhooksApiFixture : WebApplicationFactory<Program>, IAsyncL
         _database = appBuilder.AddPostgres("webhooksdb");
         _rabbitMq = appBuilder.AddRabbitMQ("eventbus");
         _app = appBuilder.Build();
+    }
+
+    // The host is WebApp: it needs its own settings, the fake bus connection is never opened
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder
+            .UseSetting("IdentityUrl", "http://identity.test")
+            .UseSetting("CallBackUrl", "http://identity.test")
+            .UseSetting("Identity:Url", "http://identity.test")
+            .UseSetting("ConnectionStrings:EventBus", "amqp://127.0.0.1:1");
+        base.ConfigureWebHost(builder);
     }
 
     protected override IHost CreateHost(IHostBuilder builder)

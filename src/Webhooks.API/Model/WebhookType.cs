@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Model;
 
-public enum WebhookType
+internal enum WebhookType
 {
     CatalogItemPriceChange = 1,
     OrderShipped = 2,

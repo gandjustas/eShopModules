@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.ManageViewModels
 {
-    public record ConfigureTwoFactorViewModel
+    internal record ConfigureTwoFactorViewModel
     {
         public string SelectedProvider { get; init; }
 

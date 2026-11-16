@@ -1,7 +1,7 @@
 ﻿namespace eShop.Ordering.API.Application.Commands;
 
 // Regular CommandHandler
-public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, bool>
+internal class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, bool>
 {
     private readonly IOrderRepository _orderRepository;
 
@@ -31,7 +31,7 @@ public class CancelOrderCommandHandler : IRequestHandler<CancelOrderCommand, boo
 
 
 // Use for Idempotency in Command process
-public class CancelOrderIdentifiedCommandHandler : IdentifiedCommandHandler<CancelOrderCommand, bool>
+internal class CancelOrderIdentifiedCommandHandler : IdentifiedCommandHandler<CancelOrderCommand, bool>
 {
     public CancelOrderIdentifiedCommandHandler(
         IMediator mediator,

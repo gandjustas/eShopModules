@@ -4,7 +4,7 @@
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class ScopeViewModel
+internal class ScopeViewModel
 {
     public string Value { get; set; }
     public string DisplayName { get; set; }

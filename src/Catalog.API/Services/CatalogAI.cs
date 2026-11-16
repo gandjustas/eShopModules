@@ -4,7 +4,7 @@ using Pgvector;
 
 namespace eShop.Catalog.API.Services;
 
-public sealed class CatalogAI : ICatalogAI
+internal sealed class CatalogAI : ICatalogAI
 {
     private const int EmbeddingDimensions = 384;
     private readonly IEmbeddingGenerator<string, Embedding<float>>? _embeddingGenerator;

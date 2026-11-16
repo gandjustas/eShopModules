@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.IntegrationEvents;
 
-public class OrderingIntegrationEventService(IEventBus eventBus,
+internal class OrderingIntegrationEventService(IEventBus eventBus,
     OrderingContext orderingContext,
     [FromKeyedServices("ordering")] IIntegrationEventLogService integrationEventLogService,
     ILogger<OrderingIntegrationEventService> logger) : IOrderingIntegrationEventService

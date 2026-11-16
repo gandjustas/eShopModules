@@ -4,7 +4,7 @@
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class LoginInputModel
+internal class LoginInputModel
 {
     [Required]
     public string Username { get; set; }

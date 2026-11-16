@@ -4,7 +4,7 @@
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class ConsentViewModel : ConsentInputModel
+internal class ConsentViewModel : ConsentInputModel
 {
     public string ClientName { get; set; }
     public string ClientUrl { get; set; }

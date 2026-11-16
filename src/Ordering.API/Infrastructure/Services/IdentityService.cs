@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Infrastructure.Services;
 
-public class IdentityService(IHttpContextAccessor context) : IIdentityService
+internal class IdentityService(IHttpContextAccessor context) : IIdentityService
 {
     public string GetUserIdentity()
         => context.HttpContext?.User.FindFirst("sub")?.Value;

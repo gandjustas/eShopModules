@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace eShop.Catalog.API.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class Outbox : Migration
+    internal partial class Outbox : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

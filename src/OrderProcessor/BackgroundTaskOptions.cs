@@ -1,6 +1,6 @@
 ﻿namespace eShop.OrderProcessor;
 
-public class BackgroundTaskOptions
+internal class BackgroundTaskOptions
 {
     public int GracePeriodTime { get; set; }
 

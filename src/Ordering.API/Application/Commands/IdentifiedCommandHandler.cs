@@ -6,7 +6,7 @@
 /// </summary>
 /// <typeparam name="T">Type of the command handler that performs the operation if request is not duplicated</typeparam>
 /// <typeparam name="R">Return value of the inner command handler</typeparam>
-public abstract class IdentifiedCommandHandler<T, R> : IRequestHandler<IdentifiedCommand<T, R>, R>
+internal abstract class IdentifiedCommandHandler<T, R> : IRequestHandler<IdentifiedCommand<T, R>, R>
     where T : IRequest<R>
 {
     private readonly IMediator _mediator;

@@ -8,7 +8,7 @@ using Pgvector.EntityFrameworkCore;
 
 namespace eShop.Catalog.API;
 
-public static class CatalogApi
+internal static class CatalogApi
 {
     public static IEndpointRouteBuilder MapCatalogApi(this IEndpointRouteBuilder app)
     {

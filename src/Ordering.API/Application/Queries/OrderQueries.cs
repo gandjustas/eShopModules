@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.Queries;
 
-public class OrderQueries(OrderingContext context)
+internal class OrderQueries(OrderingContext context)
     : IOrderQueries
 {
     public async Task<Order> GetOrderAsync(int id)

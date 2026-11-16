@@ -1,6 +1,6 @@
 ﻿namespace eShop.PaymentProcessor.IntegrationEvents.EventHandling;
 
-public class OrderStatusChangedToStockConfirmedIntegrationEventHandler(
+internal class OrderStatusChangedToStockConfirmedIntegrationEventHandler(
     IEventBus eventBus,
     IOptionsMonitor<PaymentOptions> options,
     ILogger<OrderStatusChangedToStockConfirmedIntegrationEventHandler> logger) :

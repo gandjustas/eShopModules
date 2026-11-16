@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.DomainEventHandlers;
 
-public class ValidateOrAddBuyerAggregateWhenOrderStartedDomainEventHandler
+internal class ValidateOrAddBuyerAggregateWhenOrderStartedDomainEventHandler
                     : INotificationHandler<OrderStartedDomainEvent>
 {
     private readonly ILogger _logger;

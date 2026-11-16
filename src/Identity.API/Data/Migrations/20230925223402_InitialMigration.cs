@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace eShop.Identity.API.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    internal partial class InitialMigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,6 +1,6 @@
 ﻿namespace eShop.Catalog.API.IntegrationEvents;
 
-public interface ICatalogIntegrationEventService
+internal interface ICatalogIntegrationEventService
 {
     Task SaveEventAndCatalogContextChangesAsync(IntegrationEvent evt);
     Task PublishThroughEventBusAsync(IntegrationEvent evt);

@@ -1,7 +1,7 @@
 ﻿namespace eShop.Ordering.API.Application.Commands;
 
 // Regular CommandHandler
-public class SetStockRejectedOrderStatusCommandHandler : IRequestHandler<SetStockRejectedOrderStatusCommand, bool>
+internal class SetStockRejectedOrderStatusCommandHandler : IRequestHandler<SetStockRejectedOrderStatusCommand, bool>
 {
     private readonly IOrderRepository _orderRepository;
 
@@ -35,7 +35,7 @@ public class SetStockRejectedOrderStatusCommandHandler : IRequestHandler<SetStoc
 
 
 // Use for Idempotency in Command process
-public class SetStockRejectedOrderStatusIdentifiedCommandHandler : IdentifiedCommandHandler<SetStockRejectedOrderStatusCommand, bool>
+internal class SetStockRejectedOrderStatusIdentifiedCommandHandler : IdentifiedCommandHandler<SetStockRejectedOrderStatusCommand, bool>
 {
     public SetStockRejectedOrderStatusIdentifiedCommandHandler(
         IMediator mediator,

@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.AccountViewModels
 {
-    public record ForgotPasswordViewModel
+    internal record ForgotPasswordViewModel
     {
         [Required]
         [EmailAddress]

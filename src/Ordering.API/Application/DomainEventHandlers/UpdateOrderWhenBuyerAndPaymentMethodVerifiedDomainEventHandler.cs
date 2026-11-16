@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.DomainEventHandlers;
 
-public class UpdateOrderWhenBuyerAndPaymentMethodVerifiedDomainEventHandler : INotificationHandler<BuyerAndPaymentMethodVerifiedDomainEvent>
+internal class UpdateOrderWhenBuyerAndPaymentMethodVerifiedDomainEventHandler : INotificationHandler<BuyerAndPaymentMethodVerifiedDomainEvent>
 {
     private readonly IOrderRepository _orderRepository;
     private readonly ILogger _logger;

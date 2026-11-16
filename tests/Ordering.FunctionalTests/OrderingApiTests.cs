@@ -1,4 +1,6 @@
-﻿using System.Net;
+﻿extern alias webapp;
+
+using System.Net;
 using System.Text;
 using System.Text.Json;
 using Asp.Versioning;
@@ -12,7 +14,7 @@ namespace eShop.Ordering.FunctionalTests;
 
 public sealed class OrderingApiTests : IClassFixture<OrderingApiFixture>
 {
-    private readonly WebApplicationFactory<Program> _webApplicationFactory;
+    private readonly WebApplicationFactory<webapp::Program> _webApplicationFactory;
     private readonly HttpClient _httpClient;
 
     public OrderingApiTests(OrderingApiFixture fixture)

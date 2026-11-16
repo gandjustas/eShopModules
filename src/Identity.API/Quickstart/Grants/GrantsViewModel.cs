@@ -4,12 +4,12 @@
 
 namespace IdentityServerHost.Quickstart.UI;
 
-public class GrantsViewModel
+internal class GrantsViewModel
 {
     public IEnumerable<GrantViewModel> Grants { get; set; }
 }
 
-public class GrantViewModel
+internal class GrantViewModel
 {
     public string ClientId { get; set; }
     public string ClientName { get; set; }

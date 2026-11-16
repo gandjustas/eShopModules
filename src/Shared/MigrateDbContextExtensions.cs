@@ -87,7 +87,7 @@ internal static class MigrateDbContextExtensions
         }
     }
 }
-public interface IDbSeeder<in TContext> where TContext : DbContext
+internal interface IDbSeeder<in TContext> where TContext : DbContext
 {
     Task SeedAsync(TContext context);
 }

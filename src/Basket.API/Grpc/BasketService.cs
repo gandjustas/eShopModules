@@ -5,7 +5,7 @@ using eShop.Basket.API.Model;
 
 namespace eShop.Basket.API.Grpc;
 
-public class BasketService(
+internal class BasketService(
     IBasketRepository repository,
     ILogger<BasketService> logger) : Basket.BasketBase
 {

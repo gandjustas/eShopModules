@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.DomainEventHandlers;
 
-public class OrderShippedDomainEventHandler
+internal class OrderShippedDomainEventHandler
                 : INotificationHandler<OrderShippedDomainEvent>
 {
     private readonly IOrderRepository _orderRepository;

@@ -34,7 +34,7 @@ internal static class Extensions
         // Configure mediatR
         services.AddMediatR(cfg =>
         {
-            cfg.RegisterServicesFromAssemblyContaining(typeof(Program));
+            cfg.RegisterServicesFromAssemblyContaining(typeof(Extensions));
 
             cfg.AddOpenBehavior(typeof(LoggingBehavior<,>));
             cfg.AddOpenBehavior(typeof(ValidatorBehavior<,>));
@@ -42,7 +42,7 @@ internal static class Extensions
         });
 
         // Register the command validators for the validator behavior (validators based on FluentValidation library)
-        services.AddValidatorsFromAssemblyContaining<CancelOrderCommandValidator>();
+        services.AddValidatorsFromAssemblyContaining<CancelOrderCommandValidator>(includeInternalTypes: true);
 
         services.AddScoped<IOrderQueries, OrderQueries>();
         services.AddScoped<IBuyerRepository, BuyerRepository>();

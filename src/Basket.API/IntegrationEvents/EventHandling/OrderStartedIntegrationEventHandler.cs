@@ -3,7 +3,7 @@ using eShop.Basket.API.IntegrationEvents.EventHandling.Events;
 
 namespace eShop.Basket.API.IntegrationEvents.EventHandling;
 
-public class OrderStartedIntegrationEventHandler(
+internal class OrderStartedIntegrationEventHandler(
     IBasketRepository repository,
     ILogger<OrderStartedIntegrationEventHandler> logger) : IIntegrationEventHandler<OrderStartedIntegrationEvent>
 {

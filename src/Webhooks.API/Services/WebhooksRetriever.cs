@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Services;
 
-public class WebhooksRetriever(WebhooksContext db) : IWebhooksRetriever
+internal class WebhooksRetriever(WebhooksContext db) : IWebhooksRetriever
 {
     public async Task<IEnumerable<WebhookSubscription>> GetSubscriptionsOfType(WebhookType type)
     {

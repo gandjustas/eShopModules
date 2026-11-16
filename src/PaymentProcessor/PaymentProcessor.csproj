@@ -2,6 +2,8 @@
 
   <PropertyGroup>
     <TargetFramework>net11.0</TargetFramework>
+    <!-- Модуль хоста WebApp: библиотека, свой процесс ему не нужен -->
+    <OutputType>Library</OutputType>
   </PropertyGroup>
 
   <ItemGroup>
@@ -11,6 +13,12 @@
   <ItemGroup>
     <ProjectReference Include="..\eShop.ServiceDefaults\eShop.ServiceDefaults.csproj" />
     <ProjectReference Include="..\EventBusRabbitMQ\EventBusRabbitMQ.csproj" />
+  </ItemGroup>
+
+  <!-- Тесты видят внутренности модуля; DynamicProxyGenAssembly2 - прокси NSubstitute для internal-интерфейсов -->
+  <ItemGroup>
+    <InternalsVisibleTo Include="Application.UnitTests" />
+    <InternalsVisibleTo Include="DynamicProxyGenAssembly2" />
   </ItemGroup>
 
 </Project>

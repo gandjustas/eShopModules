@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Services;
 
-public interface IGrantUrlTesterService
+internal interface IGrantUrlTesterService
 {
     Task<bool> TestGrantUrl(string urlHook, string url, string token);
 }

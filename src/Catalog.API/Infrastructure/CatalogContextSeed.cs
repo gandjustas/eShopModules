@@ -4,7 +4,7 @@ using Pgvector;
 
 namespace eShop.Catalog.API.Infrastructure;
 
-public partial class CatalogContextSeed(
+internal partial class CatalogContextSeed(
     IWebHostEnvironment env,
     IOptions<CatalogOptions> settings,
     ICatalogAI catalogAI,

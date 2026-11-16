@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.IntegrationEvents.Events;
 
-public record OrderPaymentFailedIntegrationEvent : IntegrationEvent
+internal record OrderPaymentFailedIntegrationEvent : IntegrationEvent
 {
     public int OrderId { get; }
 

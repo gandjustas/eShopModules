@@ -1,6 +1,6 @@
 ﻿namespace eShop.Basket.API.Model;
 
-public class BasketItem : IValidatableObject
+internal class BasketItem : IValidatableObject
 {
     public string Id { get; set; }
     public int ProductId { get; set; }

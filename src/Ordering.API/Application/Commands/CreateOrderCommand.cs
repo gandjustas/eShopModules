@@ -13,7 +13,7 @@ using eShop.Ordering.API.Application.Models;
 using eShop.Ordering.API.Extensions;
 
 [DataContract]
-public class CreateOrderCommand
+internal class CreateOrderCommand
     : IRequest<bool>
 {
     [DataMember]

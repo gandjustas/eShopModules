@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.ManageViewModels
 {
-    public record VerifyPhoneNumberViewModel
+    internal record VerifyPhoneNumberViewModel
     {
         [Required]
         public string Code { get; init; }

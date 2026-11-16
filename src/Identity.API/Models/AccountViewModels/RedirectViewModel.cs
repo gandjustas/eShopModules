@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.AccountViewModels
 {
-    public class RedirectViewModel
+    internal class RedirectViewModel
     {
         public string RedirectUrl { get; set; }
     }

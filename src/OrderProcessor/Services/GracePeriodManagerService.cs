@@ -4,7 +4,7 @@ using eShop.OrderProcessor.Events;
 
 namespace eShop.OrderProcessor.Services
 {
-    public class GracePeriodManagerService(
+    internal class GracePeriodManagerService(
         IOptions<BackgroundTaskOptions> options,
         IEventBus eventBus,
         ILogger<GracePeriodManagerService> logger,

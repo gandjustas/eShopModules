@@ -1,6 +1,6 @@
 namespace IdentityServerHost.Quickstart.UI;
 
-public static class Extensions
+internal static class Extensions
 {
     /// <summary>
     /// Checks if the redirect URI is for a native client.

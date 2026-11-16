@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Extensions;
 
-public static class BasketItemExtensions
+internal static class BasketItemExtensions
 {
     public static IEnumerable<OrderItemDTO> ToOrderItemsDTO(this IEnumerable<BasketItem> basketItems)
     {

@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Model;
 
-public class WebhookData
+internal class WebhookData
 {
     public DateTime When { get; }
 

@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.Queries;
 
-public interface IOrderQueries
+internal interface IOrderQueries
 {
     Task<Order> GetOrderAsync(int id);
 

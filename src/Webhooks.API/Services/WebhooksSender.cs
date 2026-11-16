@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.Services;
 
-public class WebhooksSender(IHttpClientFactory httpClientFactory, ILogger<WebhooksSender> logger) : IWebhooksSender
+internal class WebhooksSender(IHttpClientFactory httpClientFactory, ILogger<WebhooksSender> logger) : IWebhooksSender
 {
     public async Task SendAll(IEnumerable<WebhookSubscription> receivers, WebhookData data)
     {

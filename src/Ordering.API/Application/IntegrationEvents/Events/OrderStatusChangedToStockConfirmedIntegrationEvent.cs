@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.IntegrationEvents.Events;
 
-public record OrderStatusChangedToStockConfirmedIntegrationEvent : IntegrationEvent
+internal record OrderStatusChangedToStockConfirmedIntegrationEvent : IntegrationEvent
 {
     public int OrderId { get; }
     public OrderStatus OrderStatus { get; }

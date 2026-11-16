@@ -1,6 +1,6 @@
 ﻿namespace eShop.Ordering.API.Application.Models;
 
-public class BasketItem
+internal class BasketItem
 {
     public string Id { get; init; }
     public int ProductId { get; init; }

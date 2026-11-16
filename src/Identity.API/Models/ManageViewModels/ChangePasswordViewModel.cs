@@ -1,6 +1,6 @@
 ﻿namespace eShop.Identity.API.Models.ManageViewModels
 {
-    public record ChangePasswordViewModel
+    internal record ChangePasswordViewModel
     {
         [Required]
         [DataType(DataType.Password)]

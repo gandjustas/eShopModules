@@ -1,31 +1,43 @@
-﻿using Aspire.Hosting;
+﻿extern alias webapp;
+
+using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
 
 using eShop.ServiceDefaults;
 using Microsoft.AspNetCore.Authorization;
+using FusionModules.Testing;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 
 namespace eShop.Ordering.FunctionalTests;
 
-public sealed class OrderingApiFixture : WebApplicationFactory<Program>, IAsyncLifetime
+public sealed class OrderingApiFixture : ModularWebApplicationFactory<webapp::Program>, IAsyncLifetime
 {
     private readonly IHost _app;
 
     public IResourceBuilder<PostgresServerResource> Postgres { get; private set; }
-    public IResourceBuilder<PostgresServerResource> IdentityDB { get; private set; }
-    public IResourceBuilder<ProjectResource> IdentityApi { get; private set; }
 
     private string _postgresConnectionString;
 
     public OrderingApiFixture()
+        : base(["Ordering.API"])
     {
         var options = new DistributedApplicationOptions { AssemblyName = typeof(OrderingApiFixture).Assembly.FullName, DisableDashboard = true };
         var appBuilder = DistributedApplication.CreateBuilder(options);
         Postgres = appBuilder.AddPostgres("OrderingDB");
-        IdentityDB = appBuilder.AddPostgres("IdentityDB");
-        IdentityApi = appBuilder.AddProject<Projects.Identity_API>("identity-api").WithReference(IdentityDB);
         _app = appBuilder.Build();
+    }
+
+    // The host is WebApp: it needs its own settings, the fake bus connection is never opened
+    protected override void ConfigureWebHost(IWebHostBuilder builder)
+    {
+        builder
+            .UseSetting("IdentityUrl", "http://identity.test")
+            .UseSetting("CallBackUrl", "http://identity.test")
+            .UseSetting("Identity:Url", "http://identity.test")
+            .UseSetting("ConnectionStrings:EventBus", "amqp://127.0.0.1:1");
+        base.ConfigureWebHost(builder);
     }
 
     protected override IHost CreateHost(IHostBuilder builder)
@@ -35,7 +47,7 @@ public sealed class OrderingApiFixture : WebApplicationFactory<Program>, IAsyncL
             config.AddInMemoryCollection(new Dictionary<string, string>
             {
                 { $"ConnectionStrings:{Postgres.Resource.Name}", _postgresConnectionString },
-                { "Identity:Url", IdentityApi.GetEndpoint("http").Url }
+                { "Identity:Url", "http://identity.test" }
             });
         });
         builder.ConfigureServices(services =>

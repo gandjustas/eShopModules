@@ -1,3 +1,3 @@
 ﻿namespace eShop.Ordering.API.Application.Commands;
 
-public record SetStockConfirmedOrderStatusCommand(int OrderNumber) : IRequest<bool>;
+internal record SetStockConfirmedOrderStatusCommand(int OrderNumber) : IRequest<bool>;

@@ -1,6 +1,6 @@
 ﻿namespace Webhooks.API.IntegrationEvents;
 
-public class OrderStatusChangedToShippedIntegrationEventHandler(
+internal class OrderStatusChangedToShippedIntegrationEventHandler(
     IWebhooksRetriever retriever,
     IWebhooksSender sender,
     ILogger<OrderStatusChangedToShippedIntegrationEventHandler> logger) : IIntegrationEventHandler<OrderStatusChangedToShippedIntegrationEvent>

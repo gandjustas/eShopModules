@@ -1,3 +1,3 @@
 ﻿namespace eShop.PaymentProcessor.IntegrationEvents.Events;
 
-public record OrderPaymentSucceededIntegrationEvent(int OrderId) : IntegrationEvent;
+internal record OrderPaymentSucceededIntegrationEvent(int OrderId) : IntegrationEvent;
