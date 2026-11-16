@@ -2,7 +2,7 @@
 
 public class OrderingIntegrationEventService(IEventBus eventBus,
     OrderingContext orderingContext,
-    IIntegrationEventLogService integrationEventLogService,
+    [FromKeyedServices("ordering")] IIntegrationEventLogService integrationEventLogService,
     ILogger<OrderingIntegrationEventService> logger) : IOrderingIntegrationEventService
 {
     private readonly IEventBus _eventBus = eventBus ?? throw new ArgumentNullException(nameof(eventBus));

@@ -31,14 +31,14 @@ public static class Topologies
     // в ней ASP.NET Core применяет сам, поэтому список модулей пуст.
     public static readonly Topology[] Current =
     [
-        new("Basket.API", typeof(basket::Program), []),
-        new("Catalog.API", typeof(catalog::Program), []),
+        new("Basket.API", typeof(webapp::Program), ["Basket.API"]),
+        new("Catalog.API", typeof(webapp::Program), ["Catalog.API"]),
         new("Identity.API", typeof(identity::Program), []),
-        new("Ordering.API", typeof(ordering::Program), []),
-        new("OrderProcessor", typeof(orderprocessor::Program), []),
-        new("PaymentProcessor", typeof(payment::Program), []),
+        new("Ordering.API", typeof(webapp::Program), ["Ordering.API"]),
+        new("OrderProcessor", typeof(webapp::Program), ["OrderProcessor"]),
+        new("PaymentProcessor", typeof(webapp::Program), ["PaymentProcessor"]),
         new("WebApp", typeof(webapp::Program), []),
         new("WebhookClient", typeof(webhookclient::Program), []),
-        new("Webhooks.API", typeof(webhooks::Program), []),
+        new("Webhooks.API", typeof(webapp::Program), ["Webhooks.API"]),
     ];
 }

@@ -12,6 +12,8 @@
     <!-- Asp.Versioning.OpenApi constrains Microsoft.OpenApi to < 3.0.0, but Microsoft.AspNetCore.OpenApi 11 requires Microsoft.OpenApi 3.x.
          Remove once an Asp.Versioning.OpenApi release supports Microsoft.OpenApi 3.x. -->
     <NoWarn>$(NoWarn);NU1608</NoWarn>
+    <!-- SDK 11: несколько веб-проектов в одном хосте приносят одинаковый JS-модуль HotReload без endpoint, и Debug-сборка WebApp падает -->
+    <EnableHotReloadInRuntimeConfigDevFile>false</EnableHotReloadInRuntimeConfigDevFile>
     <UseArtifactsOutput>true</UseArtifactsOutput>
   </PropertyGroup>
 

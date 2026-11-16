@@ -24,16 +24,12 @@ internal sealed class Module : ModuleBase
     }
     protected override void Configure(IApplicationBuilder app)
     {
-
         app.UseEndpoints(endpoints =>
         {
-
             var webHooks = endpoints.NewVersionedApi("Web Hooks");
 
             webHooks.MapWebHooksApiV1()
-                    .RequireAuthorization();
-
-
+                    .RequireAuthorization(AuthenticationExtensions.BearerPolicy);
         });
     }
 }

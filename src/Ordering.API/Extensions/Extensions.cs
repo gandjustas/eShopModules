@@ -20,7 +20,8 @@ internal static class Extensions
         services.AddMigration<OrderingContext, OrderingContextSeed>();
 
         // Add the integration services that consume the DbContext
-        services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService<OrderingContext>>();
+        // С ключом: в общем хосте журнал событий есть и у каталога, и у каждого сервиса со своей БД
+        services.AddKeyedTransient<IIntegrationEventLogService, IntegrationEventLogService<OrderingContext>>("ordering");
 
         services.AddTransient<IOrderingIntegrationEventService, OrderingIntegrationEventService>();
 

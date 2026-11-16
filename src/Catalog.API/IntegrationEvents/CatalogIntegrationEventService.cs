@@ -3,7 +3,7 @@
 public sealed class CatalogIntegrationEventService(ILogger<CatalogIntegrationEventService> logger,
     IEventBus eventBus,
     CatalogContext catalogContext,
-    IIntegrationEventLogService integrationEventLogService)
+    [FromKeyedServices("catalog")] IIntegrationEventLogService integrationEventLogService)
     : ICatalogIntegrationEventService, IDisposable
 {
     private volatile bool disposedValue;

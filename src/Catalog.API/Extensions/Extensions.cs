@@ -24,7 +24,8 @@ public static class Extensions
         builder.Services.AddMigration<CatalogContext, CatalogContextSeed>();
 
         // Add the integration services that consume the DbContext
-        builder.Services.AddTransient<IIntegrationEventLogService, IntegrationEventLogService<CatalogContext>>();
+        // С ключом: в общем хосте журнал событий есть и у заказов, и у каждого сервиса со своей БД
+        builder.Services.AddKeyedTransient<IIntegrationEventLogService, IntegrationEventLogService<CatalogContext>>("catalog");
 
         builder.Services.AddTransient<ICatalogIntegrationEventService, CatalogIntegrationEventService>();
 

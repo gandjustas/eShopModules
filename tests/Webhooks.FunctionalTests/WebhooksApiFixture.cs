@@ -1,5 +1,7 @@
 using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
+using eShop.ServiceDefaults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -42,6 +44,9 @@ public sealed class WebhooksApiFixture : WebApplicationFactory<Program>, IAsyncL
             services.RemoveAll<IGrantUrlTesterService>();
             services.AddSingleton<IGrantUrlTesterService, ConfigurableGrantUrlTester>();
             services.AddSingleton<IStartupFilter>(new TestAuthenticationStartupFilter());
+            // Политика Bearer проверяла бы токен схемой JwtBearer; тесту хватает пользователя, которого ставит middleware
+            services.PostConfigure<AuthorizationOptions>(options =>
+                options.AddPolicy(AuthenticationExtensions.BearerPolicy, policy => policy.RequireAuthenticatedUser()));
         });
         return base.CreateHost(builder);
     }

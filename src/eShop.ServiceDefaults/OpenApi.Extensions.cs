@@ -41,7 +41,6 @@ public static partial class Extensions
                         options.AddDocument(description.GroupName, description.GroupName, isDefault: description.GroupName == defaultDocument);
                     }
                 });
-                endpoints.MapGet("/", () => Results.Redirect($"/scalar/{defaultDocument}")).ExcludeFromDescription();
             }
         });
 

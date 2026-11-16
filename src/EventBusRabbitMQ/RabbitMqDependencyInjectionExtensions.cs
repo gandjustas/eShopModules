@@ -1,4 +1,5 @@
-﻿using eShop.EventBusRabbitMQ;
+﻿using eShop.EventBus.Abstractions;
+using eShop.EventBusRabbitMQ;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Microsoft.Extensions.Hosting;
@@ -17,6 +18,13 @@ public static class RabbitMqDependencyInjectionExtensions
     public static IEventBusBuilder AddRabbitMqEventBus(this IHostApplicationBuilder builder, string connectionName)
     {
         ArgumentNullException.ThrowIfNull(builder);
+
+        // Шину регистрирует тот, кто первым о ней попросил: в общем хосте её просят и хост, и модули,
+        // а вторая шина запустила бы второго потребителя той же очереди
+        if (builder.Services.Any(d => d.ServiceType == typeof(IEventBus)))
+        {
+            return new EventBusBuilder(builder.Services);
+        }
 
         builder.AddRabbitMQClient(connectionName);
 

@@ -17,6 +17,19 @@
   </ItemGroup>
 
   <ItemGroup>
+    <!-- Сервисы-модули. Ссылки нужны, чтобы сборки (и их content) оказались рядом с хостом: какие модули
+         загрузятся, решает HOSTINGSTARTUPASSEMBLIES. У каждого сервиса свой Program в глобальном пространстве
+         имён, псевдонимы убирают их с глаз компилятора хоста -->
+    <ProjectReference Include="..\Basket.API\Basket.API.csproj" Aliases="modules" />
+    <ProjectReference Include="..\Catalog.API\Catalog.API.csproj" Aliases="modules" />
+    <ProjectReference Include="..\Ordering.API\Ordering.API.csproj" Aliases="modules" />
+    <ProjectReference Include="..\OrderProcessor\OrderProcessor.csproj" Aliases="modules" />
+    <ProjectReference Include="..\PaymentProcessor\PaymentProcessor.csproj" Aliases="modules" />
+    <ProjectReference Include="..\Webhooks.API\Webhooks.API.csproj" Aliases="modules" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FusionModules" />
     <PackageReference Include="Asp.Versioning.Http.Client" />
     <PackageReference Include="Aspire.Azure.AI.OpenAI" />
     <PackageReference Include="CommunityToolkit.Aspire.OllamaSharp" />

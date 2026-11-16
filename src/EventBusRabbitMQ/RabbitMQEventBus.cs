@@ -189,21 +189,25 @@ public sealed class RabbitMQEventBus(
 
         await using var scope = serviceProvider.CreateAsyncScope();
 
-        if (!_subscriptionInfo.EventTypes.TryGetValue(eventName, out var eventType))
+        if (!_subscriptionInfo.EventTypes.TryGetValue(eventName, out var eventTypes))
         {
             logger.LogWarning("Unable to resolve event type for event name {EventName}", eventName);
             return;
         }
 
-        // Deserialize the event
-        var integrationEvent = DeserializeMessage(message, eventType);
-        
-        // REVIEW: This could be done in parallel
-
-        // Get all the handlers using the event type as the key
-        foreach (var handler in scope.ServiceProvider.GetKeyedServices<IIntegrationEventHandler>(eventType))
+        // The same event name can be declared by several services hosted in one process, each in its own type
+        foreach (var eventType in eventTypes)
         {
-            await handler.Handle(integrationEvent);
+            // Deserialize the event
+            var integrationEvent = DeserializeMessage(message, eventType);
+
+            // REVIEW: This could be done in parallel
+
+            // Get all the handlers using the event type as the key
+            foreach (var handler in scope.ServiceProvider.GetKeyedServices<IIntegrationEventHandler>(eventType))
+            {
+                await handler.Handle(integrationEvent);
+            }
         }
     }
 

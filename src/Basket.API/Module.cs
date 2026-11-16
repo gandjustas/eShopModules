@@ -2,6 +2,7 @@
 using eShop.Basket.API.IntegrationEvents.EventHandling;
 using eShop.Basket.API.IntegrationEvents.EventHandling.Events;
 using eShop.Basket.API.Repositories;
+using eShop.ServiceDefaults;
 using FusionModules;
 
 [assembly: HostingStartup(typeof(Basket.API.Module))]
@@ -20,14 +21,16 @@ internal sealed class Module : ModuleBase
                .ConfigureJsonOptions(options => options.TypeInfoResolverChain.Add(IntegrationEventContext.Default));
 
         builder.Services.AddGrpc();
-
     }
+
     protected override void Configure(IApplicationBuilder app)
     {
-
         app.UseEndpoints(endpoints =>
         {
-            endpoints.MapGrpcService<BasketService>();
+            // Токен проверяет политика Bearer: в общем хосте схема по умолчанию - cookie витрины.
+            // GetBasket помечен AllowAnonymous, пользователя для него тоже ставит эта политика
+            endpoints.MapGrpcService<BasketService>()
+                     .RequireAuthorization(AuthenticationExtensions.BearerPolicy);
         });
     }
 }

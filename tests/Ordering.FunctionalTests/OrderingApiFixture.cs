@@ -1,6 +1,8 @@
 ﻿using Aspire.Hosting;
 using Aspire.Hosting.ApplicationModel;
 
+using eShop.ServiceDefaults;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.Extensions.Hosting;
 
@@ -39,6 +41,9 @@ public sealed class OrderingApiFixture : WebApplicationFactory<Program>, IAsyncL
         builder.ConfigureServices(services =>
         {
             services.AddSingleton<IStartupFilter>(new AutoAuthorizeStartupFilter());
+            // Политика Bearer проверяла бы токен схемой JwtBearer; тесту хватает пользователя, которого ставит middleware
+            services.PostConfigure<AuthorizationOptions>(options =>
+                options.AddPolicy(AuthenticationExtensions.BearerPolicy, policy => policy.RequireAuthenticatedUser()));
         });
         return base.CreateHost(builder);
     }

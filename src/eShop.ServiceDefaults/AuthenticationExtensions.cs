@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -7,6 +8,12 @@ namespace eShop.ServiceDefaults;
 
 public static class AuthenticationExtensions
 {
+    /// <summary>
+    /// Политика для API: токен Bearer, а не схема по умолчанию. В общем хосте со страницами схема по умолчанию -
+    /// cookie и OIDC, и API без этой политики отвечал бы переадресацией на вход вместо 401.
+    /// </summary>
+    public const string BearerPolicy = "Bearer";
+
     public static IServiceCollection AddDefaultAuthentication(this IHostApplicationBuilder builder)
     {
         var services = builder.Services;
@@ -49,7 +56,10 @@ public static class AuthenticationExtensions
             options.TokenValidationParameters.ValidateAudience = false;
         });
 
-        services.AddAuthorization();
+        services.AddAuthorizationBuilder()
+            .AddPolicy(BearerPolicy, policy => policy
+                .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme)
+                .RequireAuthenticatedUser());
 
         return services;
     }

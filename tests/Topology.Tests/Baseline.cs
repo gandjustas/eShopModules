@@ -229,6 +229,7 @@ public static class Baseline
                     "GET /cart",
                     "GET /checkout",
                     "GET /item/{itemId:int}",
+                    "GET /openapi/{documentName}.json",
                     "GET /user/login",
                     "GET /user/logout",
                     "GET /user/orders",

@@ -19,7 +19,7 @@ internal sealed class Module : ModuleBase
             var orders = endpoints.NewVersionedApi("Orders");
 
             orders.MapOrdersApiV1()
-                  .RequireAuthorization();
+                  .RequireAuthorization(AuthenticationExtensions.BearerPolicy);
         });
     }
 }

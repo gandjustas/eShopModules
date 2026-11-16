@@ -5,7 +5,9 @@ namespace eShop.EventBus.Abstractions;
 
 public class EventBusSubscriptionInfo
 {
-    public Dictionary<string, Type> EventTypes { get; } = [];
+    // Имя события - набор типов: событие с одним именем может быть объявлено в нескольких сервисах,
+    // и когда они живут в одном процессе, каждый получает его в своём типе
+    public Dictionary<string, HashSet<Type>> EventTypes { get; } = [];
 
     public JsonSerializerOptions JsonSerializerOptions { get; } = new(DefaultSerializerOptions);
 
